@@ -14,7 +14,14 @@ import {
 } from "../services/email-templates.service.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
-const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:3000";
+const getFrontendUrl = () => {
+    if (process.env.VERCEL || process.env.NODE_ENV === "production") {
+        return process.env.FRONTEND_URL_PROD || "https://classgrid.in";
+    }
+    return process.env.FRONTEND_URL || "http://localhost:3000";
+};
+
+const FRONTEND_URL = getFrontendUrl();
 
 // Helper: Token Generator
 const generateToken = (id) => {
