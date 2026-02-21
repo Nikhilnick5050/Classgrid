@@ -1,0 +1,2126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Notes | Classgrid</title>
+    <meta name="description" content="Share and discover chemistry notes">
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Playfair+Display:wght@700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-ocean: #0a1628;
+            --midnight: #0f1e35;
+            --steel: #1a2942;
+            --electric-cyan: #00fff5;
+            --neon-pink: #ff006e;
+            --sunset-orange: #ff5c00;
+            --pure-white: #ffffff;
+            --silver: #e0e6ed;
+            --soft-gray: #8b95a5;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--deep-ocean);
+            color: var(--pure-white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Prevent scroll when mobile menu is open */
+        body.menu-open {
+            overflow: hidden;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .gradient-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+            animation: float-orb 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--electric-cyan), transparent);
+            top: -200px;
+            left: -100px;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--neon-pink), transparent);
+            top: 40%;
+            right: -150px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--sunset-orange), transparent);
+            bottom: -100px;
+            left: 30%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float-orb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            25% {
+                transform: translate(100px, -100px) scale(1.1);
+            }
+
+            50% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+
+            75% {
+                transform: translate(50px, 50px) scale(1.05);
+            }
+        }
+
+        .particle-field {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--electric-cyan);
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: particle-float linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.4;
+            }
+
+            90% {
+                opacity: 0.4;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* ===== GLASSMORPHIC HEADER ===== */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 22, 40, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .main-header.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 22, 40, 0.95);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .navbar {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .nav-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-logo {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--electric-cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 245, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .nav-brand:hover .nav-logo {
+            transform: rotate(360deg);
+            box-shadow: 0 0 30px rgba(0, 255, 245, 0.6);
+        }
+
+        .logo-text h1 {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.7rem;
+            color: var(--soft-gray);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 500;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--silver);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .nav-link:hover {
+            color: var(--pure-white);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before {
+            left: 0;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+            z-index: 1001;
+            position: relative;
+        }
+
+        .mobile-menu-btn span {
+            width: 28px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translateY(8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translateY(-8px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(10, 22, 40, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 100px 2rem 2rem;
+            transform: translateX(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            z-index: 999;
+        }
+
+        .mobile-menu.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-nav-link {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 1.2rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 245, 0.1), rgba(255, 0, 110, 0.1));
+            border-color: var(--electric-cyan);
+            transform: translateX(10px);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 120px 2rem 80px;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--electric-cyan);
+            margin-bottom: 2rem;
+            animation: float-badge 3s ease-in-out infinite;
+        }
+
+        @keyframes float-badge {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--pure-white), var(--electric-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient-shift 8s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradient-shift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--silver);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        /* ===== UPLOAD FORM SECTION ===== */
+        .form-section {
+            padding: 100px 2rem;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--silver);
+        }
+
+        .upload-form-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upload-form-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 245, 0.05), rgba(255, 0, 110, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .upload-form-card:hover::before {
+            opacity: 1;
+        }
+
+        .upload-form-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 40px 100px rgba(0, 255, 245, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            color: var(--electric-cyan);
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            background: rgba(26, 41, 66, 0.5);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            color: var(--pure-white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group select {
+            cursor: pointer;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--electric-cyan);
+            background: rgba(26, 41, 66, 0.8);
+            box-shadow: 0 0 30px rgba(0, 255, 245, 0.2), inset 0 0 20px rgba(0, 255, 245, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .form-group input[type="file"] {
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+        }
+
+        .form-group input[type="file"]::file-selector-button {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border: none;
+            border-radius: 10px;
+            color: var(--pure-white);
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="file"]::file-selector-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 255, 245, 0.3);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            color: var(--pure-white);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .submit-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 255, 245, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .message {
+            margin-top: 1.5rem;
+            padding: 1.2rem;
+            border-radius: 15px;
+            font-weight: 500;
+            display: none;
+            align-items: center;
+            gap: 0.75rem;
+            animation: slideIn 0.3s ease;
+        }
+
+        .message.show {
+            display: flex;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 166, 0.1);
+            border-left: 4px solid #00ffa6;
+            color: #00ffa6;
+        }
+
+        .error-message {
+            background: rgba(255, 0, 110, 0.1);
+            border-left: 4px solid var(--neon-pink);
+            color: var(--neon-pink);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== APPROVAL MODAL ===== */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .approval-modal {
+            background: linear-gradient(135deg, rgba(26, 41, 66, 0.98), rgba(10, 22, 40, 0.98));
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 40px 100px rgba(0, 255, 245, 0.3);
+        }
+
+        .modal-close-x {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 0, 110, 0.2);
+            border: 2px solid var(--neon-pink);
+            border-radius: 50%;
+            color: var(--neon-pink);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .modal-close-x:hover {
+            background: var(--neon-pink);
+            color: var(--pure-white);
+            transform: rotate(90deg);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .modal-icon i {
+            font-size: 2.5rem;
+            color: var(--pure-white);
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 255, 245, 0.7);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 20px rgba(0, 255, 245, 0);
+            }
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .modal-message {
+            color: var(--silver);
+            text-align: center;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .modal-info-box {
+            background: rgba(0, 255, 245, 0.05);
+            border: 2px solid var(--electric-cyan);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-info-title {
+            color: var(--electric-cyan);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-info-list {
+            list-style: none;
+            color: var(--silver);
+        }
+
+        .modal-info-list li {
+            padding: 0.6rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            line-height: 1.6;
+        }
+
+        .modal-info-list li i {
+            color: var(--electric-cyan);
+            margin-top: 0.2rem;
+            flex-shrink: 0;
+        }
+
+        .modal-timeline {
+            background: rgba(255, 0, 110, 0.05);
+            border: 2px solid var(--neon-pink);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .modal-timeline-title {
+            color: var(--neon-pink);
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .modal-timeline-time {
+            color: var(--pure-white);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-timeline-note {
+            color: var(--silver);
+            font-size: 0.95rem;
+        }
+
+        .modal-close-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            color: var(--pure-white);
+            border: none;
+            border-radius: 15px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-close-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 245, 0.4);
+        }
+
+        /* ===== NOTES GRID SECTION ===== */
+        .notes-section {
+            padding: 100px 2rem;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .notes-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .note-card {
+            background: rgba(26, 41, 66, 0.95);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 25px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 245, 0.05), rgba(255, 0, 110, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .note-card:hover::before {
+            opacity: 1;
+        }
+
+        .note-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--electric-cyan);
+            box-shadow: 0 30px 80px rgba(0, 255, 245, 0.3);
+        }
+
+        .topic-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--pure-white);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .note-title {
+            font-size: 1.5rem;
+            color: var(--pure-white);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+            position: relative;
+            z-index: 2;
+        }
+
+        .note-description {
+            font-size: 0.95rem;
+            color: var(--silver);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .note-meta {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--silver);
+            font-size: 0.95rem;
+        }
+
+        .meta-item i {
+            color: var(--electric-cyan);
+            width: 20px;
+        }
+
+        .note-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.9rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .preview-btn {
+            background: rgba(0, 255, 245, 0.15);
+            border: 2px solid var(--electric-cyan);
+            color: var(--electric-cyan);
+        }
+
+        .preview-btn:hover {
+            background: var(--electric-cyan);
+            color: var(--deep-ocean);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 255, 245, 0.3);
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            color: var(--pure-white);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 0, 110, 0.3);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .loading i {
+            font-size: 3rem;
+            color: var(--electric-cyan);
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            margin-top: 1rem;
+            color: var(--silver);
+            font-size: 1.2rem;
+        }
+
+        .no-notes {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 5rem 2rem;
+            color: var(--soft-gray);
+            font-size: 1.3rem;
+        }
+
+        .no-notes i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--electric-cyan);
+            opacity: 0.5;
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: rgba(10, 22, 40, 0.95);
+            padding: 80px 2rem 30px;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h3 {
+            color: var(--electric-cyan);
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--silver);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--electric-cyan);
+            transform: translateX(5px);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            color: var(--silver);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border-color: transparent;
+            color: var(--pure-white);
+            transform: translateY(-5px) rotate(360deg);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            color: var(--soft-gray);
+        }
+
+        /* ===== SCROLL TO TOP BUTTON ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border: none;
+            border-radius: 50%;
+            color: var(--pure-white);
+            font-size: 1.3rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(0, 255, 245, 0.3);
+        }
+
+        .scroll-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(0, 255, 245, 0.5);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .notes-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: 100px 1rem 60px;
+            }
+
+            .upload-form-card {
+                padding: 2rem;
+            }
+
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .scroll-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+            }
+
+            .note-actions {
+                flex-direction: column;
+            }
+
+            .approval-modal {
+                padding: 2rem 1.5rem;
+                width: 95%;
+                max-height: 85vh;
+            }
+
+            .modal-title {
+                font-size: 1.6rem;
+            }
+
+            .modal-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .modal-icon i {
+                font-size: 2rem;
+            }
+
+            .modal-info-box,
+            .modal-timeline {
+                padding: 1.2rem;
+            }
+
+            .modal-info-title,
+            .modal-timeline-title {
+                font-size: 1rem;
+            }
+
+            .modal-timeline-time {
+                font-size: 1.5rem;
+            }
+
+            .modal-message {
+                font-size: 1rem;
+            }
+
+            .modal-info-list li {
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-text h1 {
+                font-size: 1.2rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .note-card {
+                padding: 1.5rem;
+            }
+
+            .approval-modal {
+                padding: 1.5rem 1rem;
+                width: 96%;
+                border-radius: 20px;
+            }
+
+            .modal-close-x {
+                width: 35px;
+                height: 35px;
+                top: 0.75rem;
+                right: 0.75rem;
+                font-size: 1.2rem;
+            }
+
+            .modal-icon {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+
+            .modal-icon i {
+                font-size: 1.8rem;
+            }
+
+            .modal-title {
+                font-size: 1.4rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .modal-message {
+                font-size: 0.95rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .modal-info-box,
+            .modal-timeline {
+                padding: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .modal-info-title,
+            .modal-timeline-title {
+                font-size: 0.95rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .modal-info-list li {
+                font-size: 0.9rem;
+                padding: 0.5rem 0;
+            }
+
+            .modal-timeline-time {
+                font-size: 1.4rem;
+            }
+
+            .modal-timeline-note {
+                font-size: 0.85rem;
+            }
+
+            .modal-close-btn {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--midnight);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink));
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--neon-pink), var(--sunset-orange));
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particle-field" id="particleField"></div>
+    </div>
+
+    <!-- Approval Modal -->
+    <div class="modal-overlay" id="approvalModal">
+        <div class="approval-modal">
+            <button class="modal-close-x" onclick="closeApprovalModal()" aria-label="Close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">Upload Successful!</h2>
+
+            <div class="modal-timeline">
+                <div class="modal-timeline-title">
+                    <i class="fas fa-clock"></i>
+                    Review Timeline
+                </div>
+                <div class="modal-timeline-time">Up to 24 Hours</div>
+                <div class="modal-timeline-note">Your notes are pending review by our team</div>
+            </div>
+
+            <p class="modal-message">
+                Your notes will be available once approved and verified by our developers.
+            </p>
+
+            <div class="modal-info-box">
+                <div class="modal-info-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Verification Process
+                </div>
+                <ul class="modal-info-list">
+                    <li>
+                        <i class="fas fa-check"></i>
+                        <span>Our developers will review your content for quality and relevance</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-times-circle"></i>
+                        <span>Unnecessary, inappropriate, or off-topic content will not be approved</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-star"></i>
+                        <span>High-quality educational material that benefits students will be prioritized</span>
+                    </li>
+                </ul>
+            </div>
+
+            <button class="modal-close-btn" onclick="closeApprovalModal()">
+                Got It!
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index" class="nav-brand">
+                <img src="/Classgrid.png" alt="Classgrid" class="nav-logo">
+                <div class="logo-text">
+                    <h1>CLASSGRID</h1>
+                    <p class="logo-subtitle">Platform</p>
+                </div>
+            </a>
+
+            <div class="nav-menu">
+                <a href="index" class="nav-link">Home</a>
+                <a href="classgrid_assistant" class="nav-link">Assistant</a>
+                
+                
+                
+                <a href="features" class="nav-link">Features</a>
+                <a href="review" class="nav-link">Reviews</a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index" class="mobile-nav-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="classgrid_assistant" class="mobile-nav-link">
+                <i class="fas fa-robot"></i> Assistant
+            </a>
+            
+            
+            
+            <a href="features" class="mobile-nav-link">
+                <i class="fas fa-star"></i> Features
+            </a>
+            <a href="review" class="mobile-nav-link">
+                <i class="fas fa-comments"></i> Reviews
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-book"></i>
+                <span>Share knowledge, learn together</span>
+            </div>
+            <h1>Share & Discover Classroom Notes</h1>
+            <p>Upload your academic notes to help fellow students, or browse high-quality study materials shared by the
+                classroom community.</p>
+        </div>
+    </section>
+
+    <!-- Upload Form Section -->
+    <section class="form-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Upload Your Notes</h2>
+                <p class="section-subtitle">Share your knowledge with the community</p>
+            </div>
+
+            <div class="upload-form-card">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="noteTitle">Note Title <span style="color: var(--neon-pink);">*</span></label>
+                        <input type="text" id="noteTitle" name="noteTitle" required
+                            placeholder="e.g., Quantum Mechanics Lecture Notes">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noteDescription">Description <span style="color: var(--neon-pink);">*</span></label>
+                        <textarea id="noteDescription" name="noteDescription" required
+                            placeholder="Brief description of your notes content (topics covered, key concepts, etc.)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="topic">Subject <span style="color: var(--neon-pink);">*</span></label>
+                        <select id="topic" name="topic" required>
+                            <option value="">Select a subject</option>
+                            <option value="Mathematics">Mathematics</option>
+                            <option value="Chemistry">Chemistry</option>
+                            <option value="Physics">Physics</option>
+                            <option value="Biology">Biology</option>
+                            <option value="C">C Programming</option>
+                            <option value="C++">C++ Programming</option>
+                            <option value="Java">Java</option>
+                            <option value="Python">Python</option>
+                            <option value="Data Structures & Algorithms">Data Structures & Algorithms</option>
+                            <option value="Web Development">Web Development</option>
+                            <option value="Artificial Intelligence / ML">Artificial Intelligence / ML</option>
+                            <option value="Electrical Engineering">Electrical Engineering</option>
+                            <option value="Electronics & Communication">Electronics & Communication</option>
+                            <option value="Mechanical Engineering">Mechanical Engineering</option>
+                            <option value="Civil Engineering">Civil Engineering</option>
+                            <option value="Environmental Science">Environmental Science</option>
+                            <option value="English & Communication Skills">English & Communication Skills</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uploaderName">Your Name <span style="color: var(--neon-pink);">*</span></label>
+                        <input type="text" id="uploaderName" name="uploaderName" required
+                            placeholder="Enter your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Your Role <span style="color: var(--neon-pink);">*</span></label>
+                        <select id="role" name="role" required>
+                            <option value="">Select your role</option>
+                            <option value="Student">Student</option>
+                            <option value="Teacher">Teacher</option>
+                            <option value="Researcher">Researcher</option>
+                            <option value="Professor">Professor</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="college">College/Institution <span style="color: var(--neon-pink);">*</span></label>
+                        <input type="text" id="college" name="college" required
+                            placeholder="Enter your college or institution name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="source">Source <span style="color: var(--neon-pink);">*</span></label>
+                        <select id="source" name="source" required>
+                            <option value="">Select source</option>
+                            <option value="Self-made">Self-made</option>
+                            <option value="Professor Notes">Professor Notes</option>
+                            <option value="Textbook Summary">Textbook Summary</option>
+                            <option value="Online Course">Online Course</option>
+                            <option value="Research Paper">Research Paper</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="noteFile">Upload File (PDF only) <span
+                                style="color: var(--neon-pink);">*</span></label>
+                        <input type="file" id="noteFile" name="noteFile" accept=".pdf" required>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span>Upload Notes</span>
+                    </button>
+
+                    <div class="message error-message" id="errorMessage">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span id="errorText">Something went wrong. Please try again.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Grid Section -->
+    <section class="notes-section">
+        <div class="notes-container">
+            <div class="section-header">
+                <h2 class="section-title">Approved Notes</h2>
+                <p class="section-subtitle">Browse academic notes shared by the classroom community</p>
+                <button onclick="loadNotes()"
+                    style="margin-top: 1rem; padding: 0.75rem 2rem; background: linear-gradient(135deg, var(--electric-cyan), var(--neon-pink)); border: none; border-radius: 50px; color: white; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                    <i class="fas fa-sync-alt"></i> Refresh Notes
+                </button>
+            </div>
+
+            <div class="notes-grid" id="notesGrid">
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <div class="loading-text">Loading notes...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Classgrid</h3>
+                    <p style="color: var(--silver); line-height: 1.8; margin-bottom: 1.5rem;">
+                        An AI-powered intelligent classroom ecosystem that combines structured academic management with
+                        real-time collaboration and embedded artificial intelligence.
+                    </p>
+                    <div class="social-links">
+                        <a href="https://www.instagram.com/classgrid25/" target="_blank" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://www.facebook.com/profile.php?id=61585853281971" target="_blank"
+                            class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://x.com/Nikhilnick5046" target="_blank" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index">Home</a></li>
+                        
+                        
+                        
+                        <li><a href="features">Features</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="about">About</a></li>
+                        <li><a href="https://classgridblog.wordpress.com/" target="_blank">Blog</a></li>
+                        <li><a href="documentation">Documentation</a></li>
+                        <li><a href="help">Safety</a></li>
+                        <li><a href="sources">Sources</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="privacy">Privacy Policy</a></li>
+                        <li><a href="terms">Terms of Service</a></li>
+                        <li><a href="contact">Contact Us</a></li>
+                        <li><a href="disclaimer">Disclaimer</a></li>
+                        <li><a href="security">Security</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="copyright">
+                <p>&copy; 2026 Classgrid. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button class="scroll-top" id="scrollTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Supabase & Main Script -->
+    <script type="module">
+        import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+        // Supabase Configuration
+        const supabaseUrl = 'https://fiherpwzabiftbkwuqsb.supabase.co';
+        const supabaseKey = 'sb_publishable_BTseiFm0-FrVE6_jylglcQ_re5E9piu';
+
+        const supabase = createClient(supabaseUrl, supabaseKey, {
+            auth: {
+                persistSession: false,
+                autoRefreshToken: false
+            }
+        });
+
+        // Form Elements
+        const uploadForm = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const notesGrid = document.getElementById('notesGrid');
+        const approvalModal = document.getElementById('approvalModal');
+
+        // Modal Functions
+        window.closeApprovalModal = function () {
+            approvalModal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
+        function showApprovalModal() {
+            approvalModal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal on overlay click
+        approvalModal.addEventListener('click', function (e) {
+            if (e.target === approvalModal) {
+                closeApprovalModal();
+            }
+        });
+
+        // Form Submission
+        uploadForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById('noteTitle').value.trim();
+            const description = document.getElementById('noteDescription').value.trim();
+            const topic = document.getElementById('topic').value;
+            const uploaderName = document.getElementById('uploaderName').value.trim();
+            const role = document.getElementById('role').value;
+            const college = document.getElementById('college').value.trim();
+            const source = document.getElementById('source').value;
+            const fileInput = document.getElementById('noteFile');
+            const file = fileInput.files[0];
+
+            // Validation
+            if (!title || !description || !topic || !uploaderName || !role || !college || !source || !file) {
+                showError('Please fill in all required fields');
+                return;
+            }
+
+            if (!file.type.includes('pdf')) {
+                showError('Please upload a PDF file only');
+                return;
+            }
+
+            if (file.size > 50 * 1024 * 1024) {
+                showError('File size must be less than 50MB');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.querySelector('span').textContent = 'Uploading...';
+            hideMessages();
+
+            try {
+                // Generate unique filename
+                const timestamp = Date.now();
+                const sanitizedFileName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+                const fileName = `${timestamp}_${sanitizedFileName}`;
+
+                console.log('Uploading file:', fileName);
+
+                // Upload file to Supabase Storage
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('notes-files')
+                    .upload(fileName, file, {
+                        cacheControl: '3600',
+                        upsert: false,
+                        contentType: 'application/pdf'
+                    });
+
+                if (uploadError) {
+                    console.error('Upload error:', uploadError);
+                    throw new Error(`Upload failed: ${uploadError.message}`);
+                }
+
+                console.log('File uploaded successfully:', uploadData);
+
+                // Get public URL
+                const { data: urlData } = supabase.storage
+                    .from('notes-files')
+                    .getPublicUrl(fileName);
+
+                const file_url = urlData.publicUrl;
+                console.log('Public URL:', file_url);
+
+                // Insert metadata to database
+                const { error: dbError } = await supabase
+                    .from('notes')
+                    .insert([{
+                        title,
+                        description,
+                        topic,
+                        role,
+                        source,
+                        uploader_name: uploaderName,
+                        college,
+                        file_url,
+                        approved: false
+                    }]);
+
+                if (dbError) {
+                    console.error('Database error:', dbError);
+                    throw new Error(`Database insert failed: ${dbError.message}`);
+                }
+
+                console.log('Metadata saved successfully');
+
+                // Reset form
+                uploadForm.reset();
+
+                // Show approval modal
+                showApprovalModal();
+
+                // Scroll to top after modal is closed
+                setTimeout(() => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 300);
+
+            } catch (error) {
+                console.error('Error uploading notes:', error);
+                showError(error.message || 'Failed to upload notes. Please try again.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.querySelector('span').textContent = 'Upload Notes';
+            }
+        });
+
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            setTimeout(() => {
+                errorMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        function hideMessages() {
+            errorMessage.classList.remove('show');
+        }
+
+        // Load Approved Notes
+        window.loadNotes = async function () {
+            console.log('Loading notes...');
+            notesGrid.innerHTML = `
+                <div class="loading">
+                    <i class="fas fa-spinner"></i>
+                    <div class="loading-text">Loading notes...</div>
+                </div>
+            `;
+
+            try {
+                const { data: notes, error } = await supabase
+                    .from('notes')
+                    .select('*')
+                    .eq('approved', true)
+                    .order('created_at', { ascending: false });
+
+                if (error) {
+                    console.error('Supabase query error:', error);
+                    throw new Error(error.message);
+                }
+
+                console.log('Notes loaded:', notes?.length || 0);
+
+                if (!notes || notes.length === 0) {
+                    notesGrid.innerHTML = `
+                        <div class="no-notes">
+                            <i class="fas fa-inbox"></i>
+                            <div>No approved notes yet. Be the first to share!</div>
+                        </div>
+                    `;
+                    return;
+                }
+
+                let notesHTML = '';
+                notes.forEach((note) => {
+                    notesHTML += `
+                        <div class="note-card">
+                            <div class="topic-badge">${escapeHtml(note.topic)}</div>
+                            <h3 class="note-title">${escapeHtml(note.title)}</h3>
+                            ${note.description ? `<p class="note-description">${escapeHtml(note.description)}</p>` : ''}
+                            <div class="note-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-user"></i>
+                                    <span>${escapeHtml(note.uploader_name)}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-id-badge"></i>
+                                    <span>${escapeHtml(note.role)}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-university"></i>
+                                    <span>${escapeHtml(note.college)}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-bookmark"></i>
+                                    <span>${escapeHtml(note.source)}</span>
+                                </div>
+                            </div>
+                            <div class="note-actions">
+                                <a href="${note.file_url}" target="_blank" class="action-btn preview-btn">
+                                    <i class="fas fa-eye"></i> Preview
+                                </a>
+                                <a href="${note.file_url}" download class="action-btn download-btn">
+                                    <i class="fas fa-download"></i> Download
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                notesGrid.innerHTML = notesHTML;
+                console.log('Notes rendered:', document.querySelectorAll('.note-card').length);
+
+            } catch (error) {
+                console.error('Error loading notes:', error);
+                notesGrid.innerHTML = `
+                    <div class="no-notes">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>Failed to load notes: ${error.message}</div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">Please check your Supabase configuration.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Load notes on page load
+        loadNotes();
+
+        // Reload every 30 seconds
+        setInterval(loadNotes, 30000);
+    </script>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const body = document.body;
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            body.classList.toggle('menu-open');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (mobileMenu.classList.contains('active') &&
+                !mobileMenu.contains(e.target) &&
+                !mobileMenuBtn.contains(e.target)) {
+                mobileMenuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                body.classList.remove('menu-open');
+            }
+        });
+
+        // Header Scroll Effect
+        const header = document.querySelector('.main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll to Top
+        const scrollTopBtn = document.getElementById('scrollTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 500) {
+                scrollTopBtn.classList.add('visible');
+            } else {
+                scrollTopBtn.classList.remove('visible');
+            }
+        });
+
+        scrollTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Create Particles
+        function createParticles() {
+            const particleField = document.getElementById('particleField');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particleField.appendChild(particle);
+            }
+        }
+
+        createParticles();
+
+        // Input Focus Effects
+        document.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.querySelector('label').style.color = 'var(--electric-cyan)';
+                this.parentElement.querySelector('label').style.transform = 'translateY(-3px)';
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.querySelector('label').style.color = 'var(--electric-cyan)';
+                this.parentElement.querySelector('label').style.transform = 'translateY(0)';
+            });
+        });
+
+        // GSAP Animations (only for hero/form, NOT note cards)
+        if (typeof gsap !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+
+            gsap.from('.hero-badge', {
+                duration: 1,
+                y: -50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: 0.2
+            });
+
+            gsap.from('.hero h1', {
+                duration: 1.2,
+                y: 80,
+                opacity: 0,
+                ease: 'power4.out',
+                delay: 0.4
+            });
+
+            gsap.from('.hero p', {
+                duration: 1,
+                y: 40,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: 0.6
+            });
+
+            gsap.from('.upload-form-card', {
+                scrollTrigger: {
+                    trigger: '.upload-form-card',
+                    start: 'top 80%',
+                },
+                duration: 1,
+                y: 60,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+        }
+    </script>
+    <script>
+        // ❌ Disable right click
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        // ❌ Disable view source & inspect
+        document.addEventListener("keydown", function (e) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && ["I", "C", "J"].includes(e.key)) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4222089495408727"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Documentation | Classgrid</title>
+    <meta name="description" content="Classgrid documentation - Simple chemical information platform for students.">
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ================= HEADER ================= */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* ================= HERO ================= */
+        .page-hero {
+            min-height: 40vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 60px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* ================= DOCUMENTATION LAYOUT ================= */
+        .documentation-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+            padding: 30px 0 80px;
+            min-height: calc(100vh - 400px);
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            position: sticky;
+            top: 110px;
+            height: fit-content;
+            max-height: calc(100vh - 130px);
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 2px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .sidebar-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .sidebar-link:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--accent);
+        }
+
+        .sidebar-link.active {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--accent);
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ================= DOCUMENTATION CONTENT ================= */
+        .documentation-content {
+            overflow-x: hidden;
+        }
+
+        .doc-section {
+            margin-bottom: 3rem;
+            scroll-margin-top: 100px;
+            background: var(--glass-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .doc-section:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.2);
+        }
+
+        .doc-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--glass-border);
+        }
+
+        .doc-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-light);
+            margin: 2rem 0 1rem;
+        }
+
+        .doc-section p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+
+        .doc-section ul,
+        .doc-section ol {
+            color: #cbd5e1;
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .doc-section li {
+            margin-bottom: 0.8rem;
+            line-height: 1.7;
+        }
+
+        /* ================= INFO BOXES ================= */
+        .info-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .info-box h4 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .warning-box {
+            background: rgba(255, 77, 77, 0.1);
+            border-left: 4px solid #ff4d4d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .warning-box h4 {
+            color: #ff4d4d;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .note-box {
+            background: rgba(255, 170, 51, 0.1);
+            border-left: 4px solid #ffaa33;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .note-box h4 {
+            color: #ffaa33;
+            margin-bottom: 0.75rem;
+            font-size: 1.2rem;
+        }
+
+        .note-box ul {
+            margin-top: 0.8rem;
+        }
+
+        /* ================= DATA TABLE ================= */
+        .data-table {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .data-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 2px solid var(--glass-border);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+            color: #cbd5e1;
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* ================= FEATURE GRID ================= */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(0, 212, 255, 0.05);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h4 {
+            color: var(--accent-light);
+            font-size: 1.2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ================= CONTACT CARD ================= */
+        .contact-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-card h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+        }
+
+        .contact-card p {
+            margin: 0.75rem 0;
+            color: #cbd5e1;
+        }
+
+        .contact-card strong {
+            color: var(--accent-light);
+        }
+
+        /* ================= BUTTONS ================= */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border-color: var(--purple);
+            color: var(--purple);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #b24bf3 0%, #00d4ff 100%);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(178, 75, 243, 0.4);
+        }
+
+        /* ================= FOOTER ================= */
+        .main-footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .footer-link.active {
+            color: var(--accent);
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+        }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .documentation-layout {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .sidebar {
+                position: relative;
+                top: 0;
+                max-height: none;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .page-hero {
+                padding: 120px 0 50px;
+                min-height: 30vh;
+            }
+
+            .doc-section {
+                padding: 1.5rem;
+            }
+
+            .doc-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .doc-section h3 {
+                font-size: 1.2rem;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content h1 {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+            }
+
+            .doc-section {
+                padding: 1.2rem;
+            }
+
+            .doc-section h2 {
+                font-size: 1.3rem;
+            }
+
+            .doc-section p,
+            .doc-section li {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- ================= HEADER ================= -->
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index" class="nav-brand">
+                    <img src="/Classgrid.png" alt="Classgrid Logo" class="nav-logo">
+                    <div class="logo-text">
+                        <h1>CLASSGRID</h1>
+                        <p class="logo-subtitle">Platform</p>
+                    </div>
+                </a>
+
+                <div class="nav-menu">
+                    <a href="index" class="nav-link">Home</a>
+                    <a href="team" class="nav-link">Team</a>
+                    <a href="contact" class="nav-link">Contact</a>
+                </div>
+
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index" class="mobile-nav-link">🏠 Home</a>
+            <a href="team" class="mobile-nav-link">👥 Team</a>
+            <a href="contact" class="mobile-nav-link">📞 Contact</a>
+        </div>
+    </div>
+
+    <!-- ================= HERO ================= -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1><i class="fas fa-book"></i> DOCUMENTATION</h1>
+                <p>Complete guide to Classgrid - Advanced Chemistry Learning Platform</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================= DOCUMENTATION ================= -->
+    <div class="container">
+        <div class="documentation-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <h3>📚 Documentation Guide</h3>
+                <div class="sidebar-links">
+                    <a href="#overview" class="sidebar-link active" data-section="overview">🏠 Overview</a>
+                    <a href="#objectives" class="sidebar-link" data-section="objectives">🎯 Objectives</a>
+                    <a href="#sources" class="sidebar-link" data-section="sources">📊 Data Sources</a>
+                    <a href="#features" class="sidebar-link" data-section="features">⚙️ Features</a>
+                    <a href="#guide" class="sidebar-link" data-section="guide">📖 User Guide</a>
+                    <a href="#contact" class="sidebar-link" data-section="contact">📧 Contact</a>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="documentation-content">
+                <!-- Overview Section -->
+                <section id="overview" class="doc-section">
+                    <h2>📖 Project Overview</h2>
+                    <p>Classgrid is an advanced educational platform developed by students of Pimpri Chinchwad College
+                        of Engineering (PCCOE). Our mission is to create a comprehensive, technology-driven learning
+                        environment for chemistry education.</p>
+
+                    <div class="info-box">
+                        <h4>🎯 Project Purpose</h4>
+                        <p>Classgrid provides a complete digital ecosystem for learning chemical properties, safety
+                            protocols, laboratory techniques, and theoretical concepts through interactive,
+                            student-friendly interfaces.</p>
+                    </div>
+
+                    <h3>🔬 Independent Academic Project</h3>
+                    <p>Classgrid is developed independently by students as an academic project. It does not represent
+                        official PCCOE laboratory protocols, institutional guidelines, or professional laboratory
+                        standards.</p>
+                </section>
+
+                <!-- Objectives Section -->
+                <section id="objectives" class="doc-section">
+                    <h2>🎯 Project Objectives</h2>
+
+                    <h3>📚 Educational Goals</h3>
+                    <ul>
+                        <li>Support undergraduate engineering chemistry curriculum</li>
+                        <li>Provide structured course materials and laboratory tutorials</li>
+                        <li>Offer comprehensive Classroom with safety information</li>
+                        <li>Facilitate interactive learning through modern technology</li>
+                    </ul>
+
+                    <div class="warning-box">
+                        <h4>⚠️ Important Note</h4>
+                        <p>Classgrid is for <strong>EDUCATIONAL PURPOSES ONLY</strong>. It does not replace
+                            professional laboratory training, official MSDS documents, institutional safety protocols,
+                            or professional chemical advice.</p>
+                    </div>
+                </section>
+
+                <!-- Sources Section -->
+                <section id="sources" class="doc-section">
+                    <h2>📊 Data Sources</h2>
+
+                    <p>Classgrid integrates information from multiple reputable academic and scientific sources:</p>
+
+                    <div class="data-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PubChem Database</td>
+                                    <td>Chemical structures, properties, and identifiers</td>
+                                </tr>
+                                <tr>
+                                    <td>ChemSpider Database</td>
+                                    <td>Data verification and cross-referencing</td>
+                                </tr>
+                                <tr>
+                                    <td>Academic Textbooks</td>
+                                    <td>Educational content and explanations</td>
+                                </tr>
+                                <tr>
+                                    <td>Public Safety Resources</td>
+                                    <td>General safety information and guidelines</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>📈 Data Accuracy</h3>
+                    <p>We strive to provide accurate, up-to-date information but make no guarantees about absolute
+                        completeness or accuracy. Always verify critical chemical information from official,
+                        authoritative sources before any practical application.</p>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="doc-section">
+                    <h2>⚙️ Platform Features</h2>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-graduation-cap"></i>
+                            <h4>Course Materials</h4>
+                            <p>Complete Engineering syllabus coverage</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-book-open"></i>
+                            <h4>Interactive Learning</h4>
+                            <p>Step-by-step educational guides</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-database"></i>
+                            <h4>Classroom</h4>
+                            <p>Robust database for research and study</p>
+                        </div>
+                    </div>
+
+                    <h3>💻 Technical Features</h3>
+                    <ul>
+                        <li>Responsive, modern design with mobile optimization</li>
+                        <li>Intelligent chemical search with filtering</li>
+                        <li>Interactive 3D molecular visualization</li>
+                        <li>AI-assisted chemical analysis tools</li>
+                        <li>Secure user authentication system</li>
+                    </ul>
+                </section>
+
+                <!-- User Guide Section -->
+                <section id="guide" class="doc-section">
+                    <h2>📖 User Guide</h2>
+
+                    <h3>🚀 Getting Started</h3>
+                    <ol>
+                        <li>Access course materials through the learning modules</li>
+                        <li>Use the search functionality to find specific chemicals</li>
+                        <li>Browse laboratory tutorials for practical guidance</li>
+                        <li>Explore Classroom for reference information</li>
+                        <li>Utilize AI tools for enhanced learning support</li>
+                    </ol>
+
+                    <div class="note-box">
+                        <h4>🛡️ Safety Awareness</h4>
+                        <p>Classgrid provides educational safety information. For actual laboratory work:</p>
+                        <ul>
+                            <li>Always consult official MSDS documentation</li>
+                            <li>Follow institutional safety protocols strictly</li>
+                            <li>Use proper personal protective equipment (PPE)</li>
+                            <li>Work only under qualified supervision</li>
+                            <li>Maintain proper laboratory safety practices</li>
+                        </ul>
+                    </div>
+
+                    <h3>✅ Responsible Use</h3>
+                    <p>Users are solely responsible for how they utilize information from Classgrid. Exercise caution,
+                        apply common sense, and always prioritize safety in any chemical-related activities.</p>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact" class="doc-section">
+                    <h2>📧 Contact & Support</h2>
+
+                    <h3>📞 Project Contact</h3>
+                    <p>For questions, corrections, feedback, or collaboration opportunities regarding Classgrid:</p>
+
+                    <div class="contact-card">
+                        <h4>📨 Contact Email</h4>
+                        <p><i class="fas fa-envelope"></i> <strong>classgrid25@gmail.com or
+                                support@classgrid.site</strong></p>
+                        <p><i class="fas fa-phone"></i> +91 81492 77038</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Pimpri Chinchwad College of Engineering, Pune</p>
+                        <p style="margin-top: 1.5rem; color: #94a3b8; font-size: 0.9rem;">Please allow reasonable time
+                            for response. This is a student-run academic project.</p>
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="index" class="btn btn-primary"><i class="fas fa-home"></i> Back to Home</a>
+                        <a href="team" class="btn btn-secondary"><i class="fas fa-users"></i> Meet Our Team</a>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="index" class="footer-link">Home</a>
+                <a href="team" class="footer-link">Team</a>
+                <a href="documentation" class="footer-link active">Documentation</a>
+                <a href="privacy" class="footer-link">Privacy</a>
+                <a href="disclaimer" class="footer-link">Disclaimer</a>
+                <a href="contact" class="footer-link">Contact</a>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Classgrid. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', {
+            duration: 1.2,
+            y: 100,
+            opacity: 0,
+            ease: 'power4.out',
+            delay: 0.2
+        });
+
+        gsap.utils.toArray('.doc-section').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: {
+                    trigger: elem,
+                    start: 'top 85%',
+                },
+                duration: 0.8,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out',
+                delay: i * 0.1
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.pageYOffset > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Sidebar active link management
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const sections = document.querySelectorAll('.doc-section');
+
+        function updateActiveLink() {
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            sidebarLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-section') === current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveLink);
+
+        // Smooth scroll to section
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+
+                if (section) {
+                    const offsetTop = section.offsetTop - 100;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        // ❌ Disable right click
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        // ❌ Disable view source & inspect
+        document.addEventListener("keydown", function (e) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && ["I", "C", "J"].includes(e.key)) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

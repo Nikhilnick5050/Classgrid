@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Classrooms | Classgrid</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/mobile-nav.css">
+    <style>
+        :root {
+            --bg-deep: #050a18;
+            --bg-primary: #0a1628;
+            --glass-bg: rgba(15, 25, 55, .4);
+            --glass-border: rgba(255, 255, 255, .08);
+            --glass-hover: rgba(255, 255, 255, .12);
+            --cyan: #00d4ff;
+            --cyan-dim: rgba(0, 212, 255, .15);
+            --purple: #a855f7;
+            --purple-dim: rgba(168, 85, 247, .15);
+            --green: #10b981;
+            --green-dim: rgba(16, 185, 129, .15);
+            --red: #ef4444;
+            --red-dim: rgba(239, 68, 68, .15);
+            --orange: #f97316;
+            --orange-dim: rgba(249, 115, 22, .15);
+            --white: #f1f5f9;
+            --silver: #94a3b8;
+            --muted: #475569;
+            --text-dim: #64748b;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-deep);
+            color: var(--white);
+            min-height: 100vh
+        }
+
+        .cosmos {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: radial-gradient(ellipse at 20% 50%, rgba(10, 30, 80, .4) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(100, 40, 200, .15) 0%, transparent 50%), var(--bg-deep)
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            background: rgba(5, 10, 24, .75);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .nav-brand {
+            font-family: 'Space Grotesk';
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .nav-brand .bh {
+            color: var(--cyan)
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+        .nav-pill {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: .35rem .9rem;
+            border-radius: 20px;
+            font-size: .85rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            color: var(--silver)
+        }
+
+        .btn-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--silver);
+            cursor: pointer;
+            transition: all .25s;
+            text-decoration: none
+        }
+
+        .btn-icon:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: var(--cyan-dim)
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 80px auto 2rem;
+            padding: 1.5rem
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk';
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: .5rem
+        }
+
+        .page-title span {
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent
+        }
+
+        .page-subtitle {
+            color: var(--silver);
+            font-size: .95rem;
+            margin-bottom: 2rem
+        }
+
+        /* Join Section */
+        .join-section {
+            background: linear-gradient(135deg, rgba(0, 212, 255, .06), rgba(168, 85, 247, .04));
+            border: 1px solid rgba(0, 212, 255, .12);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-end;
+            flex-wrap: wrap
+        }
+
+        .join-section .form-group {
+            flex: 1;
+            min-width: 200px
+        }
+
+        .form-label {
+            font-size: .78rem;
+            color: var(--silver);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            margin-bottom: .35rem;
+            display: block
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(5, 10, 24, .6);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-sm);
+            padding: .7rem .8rem;
+            color: var(--white);
+            font-family: 'Inter';
+            font-size: .9rem;
+            transition: all .3s
+        }
+
+        .form-input:focus {
+            border-color: var(--cyan);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, .08)
+        }
+
+        .btn {
+            padding: .6rem 1.2rem;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: .85rem;
+            cursor: pointer;
+            transition: all .3s;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            border: none
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 212, 255, .2)
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, .3)
+        }
+
+        .btn-glass {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--silver)
+        }
+
+        .btn-glass:hover {
+            border-color: var(--cyan);
+            color: var(--cyan)
+        }
+
+        .btn-sm {
+            font-size: .78rem;
+            padding: .4rem .8rem
+        }
+
+        /* Tabs */
+        .tab-nav {
+            display: flex;
+            gap: .5rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: .5rem
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--muted);
+            font-size: .9rem;
+            font-weight: 600;
+            padding: .6rem 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .tab-btn:hover {
+            color: var(--silver)
+        }
+
+        .tab-btn.active {
+            color: var(--cyan);
+            background: var(--cyan-dim)
+        }
+
+        .tab-btn .badge {
+            background: var(--orange);
+            color: #fff;
+            font-size: .65rem;
+            padding: .1rem .4rem;
+            border-radius: 8px;
+            font-weight: 700
+        }
+
+        .tab-content {
+            display: none
+        }
+
+        .tab-content.active {
+            display: block
+        }
+
+        /* Cards */
+        .classroom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem
+        }
+
+        .cc {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            transition: all .3s;
+            position: relative;
+            overflow: hidden
+        }
+
+        .cc:hover {
+            border-color: var(--cyan);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, .1)
+        }
+
+        .cc-subject {
+            font-size: .65rem;
+            padding: .2rem .55rem;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .3px;
+            background: var(--cyan-dim);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 212, 255, .2);
+            display: inline-block;
+            margin-bottom: .6rem
+        }
+
+        .cc-name {
+            font-family: 'Space Grotesk';
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: .3rem
+        }
+
+        .cc-desc {
+            font-size: .82rem;
+            color: var(--text-dim);
+            margin-bottom: .8rem;
+            line-height: 1.5
+        }
+
+        .cc-teacher {
+            font-size: .78rem;
+            color: var(--silver);
+            display: flex;
+            align-items: center;
+            gap: .4rem;
+            margin-bottom: .5rem
+        }
+
+        .cc-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: .75rem;
+            color: var(--muted)
+        }
+
+        .cc-stats span {
+            display: flex;
+            align-items: center;
+            gap: .3rem
+        }
+
+        .cc-actions {
+            display: flex;
+            gap: .5rem;
+            margin-top: 1rem
+        }
+
+        .status-badge {
+            font-size: .7rem;
+            padding: .2rem .6rem;
+            border-radius: 20px;
+            font-weight: 600;
+            position: absolute;
+            top: 1rem;
+            right: 1rem
+        }
+
+        .status-approved {
+            background: var(--green-dim);
+            color: var(--green);
+            border: 1px solid rgba(16, 185, 129, .3)
+        }
+
+        .status-pending {
+            background: var(--orange-dim);
+            color: var(--orange);
+            border: 1px solid rgba(249, 115, 22, .3)
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-dim)
+        }
+
+        .empty-state .ei {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: .4
+        }
+
+        .empty-state h3 {
+            color: var(--silver);
+            margin-bottom: .5rem
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            margin-bottom: 1rem
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk';
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: .6rem
+        }
+
+        .card-title i {
+            color: var(--cyan)
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 1rem 1.5rem;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            animation: slideIn .3s ease;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, .4)
+        }
+
+        .toast.success {
+            border-color: var(--green)
+        }
+
+        .toast.error {
+            border-color: var(--red)
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @media(max-width:768px) {
+            .classroom-grid {
+                grid-template-columns: 1fr
+            }
+
+            .join-section {
+                flex-direction: column
+            }
+
+            .container {
+                padding: 1rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cosmos"></div>
+    <nav class="navbar">
+        <a href="/" class="nav-brand"><i class="fas fa-atom" style="color:var(--cyan)"></i> Quantum<span
+                class="bh">Chem</span></a>
+        <div class="nav-right">
+            <div class="nav-pill"><i class="fas fa-user-graduate"></i> <span id="navName">Student</span></div>
+            <a href="/classroom" class="nav-icon-btn" title="Dashboard">
+                <i class="fas fa-th-large"></i>
+                <span class="nav-icon-label">Dashboard</span>
+            </a>
+            <a href="/my-classrooms" class="nav-icon-btn" title="My Classrooms">
+                <i class="fas fa-school"></i>
+                <span class="nav-icon-label">Classes</span>
+            </a>
+            <button class="nav-icon-btn danger" onclick="logout()" title="Logout">
+                <i class="fas fa-sign-out-alt"></i>
+                <span class="nav-icon-label">Logout</span>
+            </button>
+        </div>
+    </nav>
+    <div class="container">
+        <h1 class="page-title"><span>My Classrooms</span></h1>
+        <p class="page-subtitle">Join classrooms, access materials, and chat with your class.</p>
+
+        <!-- Join by Code -->
+        <div class="join-section">
+            <div class="form-group"><label class="form-label">Join with Class Code</label><input class="form-input"
+                    id="joinCode" placeholder="e.g., CHE-A3X9" style="text-transform:uppercase"></div>
+            <button class="btn btn-primary" onclick="joinByCode()" id="joinBtn"><i class="fas fa-door-open"></i> Join
+                Classroom</button>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab(this,'my')"><i class="fas fa-book-open"></i> My
+                Classrooms</button>
+            <button class="tab-btn" onclick="switchTab(this,'pending')"><i class="fas fa-hourglass-half"></i> Pending
+                <span class="badge" id="pendingBadge" style="display:none">0</span></button>
+            <button class="tab-btn" onclick="switchTab(this,'discover')"><i class="fas fa-compass"></i>
+                Discover</button>
+        </div>
+
+        <div class="tab-content active" id="tab-my">
+            <div class="classroom-grid" id="myGrid"></div>
+        </div>
+        <div class="tab-content" id="tab-pending">
+            <div class="classroom-grid" id="pendingGrid"></div>
+        </div>
+        <div class="tab-content" id="tab-discover">
+            <div style="margin-bottom:1rem"><input class="form-input" id="searchInput"
+                    placeholder="Search classrooms..." oninput="loadDiscover()" style="max-width:350px"></div>
+            <div class="classroom-grid" id="discoverGrid"></div>
+        </div>
+    </div>
+    <div id="toast" style="display:none"></div>
+    <script>
+        let token = localStorage.getItem('jwt_token');
+        let currentUser = null;
+
+        async function init() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tokenParam = urlParams.get('token');
+            if (tokenParam) {
+                token = tokenParam;
+                localStorage.setItem('jwt_token', tokenParam);
+                window.history.replaceState({}, document.title, window.location.pathname);
+            }
+
+            if (!token) { location.href = '/login'; return; }
+            try {
+                const res = await apiFetch('/api/auth/me');
+                const data = await res.json();
+                currentUser = data;
+                localStorage.setItem('user', JSON.stringify(currentUser));
+                document.getElementById('navName').textContent = currentUser.name;
+                await loadMyClassrooms();
+            } catch { location.href = '/login'; }
+        }
+
+        function apiFetch(url, o = {}) { return fetch(url, { ...o, headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json', ...(o.headers || {}) } }); }
+        function logout() { localStorage.removeItem('jwt_token'); location.href = '/login'; }
+        function switchTab(btn, name) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + name).classList.add('active');
+            btn.classList.add('active');
+            if (name === 'discover') loadDiscover();
+        }
+
+        async function loadMyClassrooms() {
+            const res = await apiFetch('/api/classrooms');
+            const data = await res.json();
+            const all = data.classrooms || [];
+            const approved = all.filter(c => c.membershipStatus === 'approved');
+            const pending = all.filter(c => c.membershipStatus === 'pending');
+            document.getElementById('myGrid').innerHTML = approved.length ? approved.map(c => classroomCard(c, 'approved')).join('') : '<div class="empty-state"><div class="ei">📚</div><h3>No classrooms yet</h3><p>Join a classroom using a class code or browse available classrooms.</p></div>';
+            document.getElementById('pendingGrid').innerHTML = pending.length ? pending.map(c => classroomCard(c, 'pending')).join('') : '<div class="empty-state"><div class="ei">⏳</div><h3>No pending requests</h3></div>';
+            const pb = document.getElementById('pendingBadge');
+            pb.textContent = pending.length; pb.style.display = pending.length > 0 ? 'inline' : 'none';
+        }
+
+        function classroomCard(c, status) {
+            const teacherName = c.teacher?.name || 'Teacher';
+            const teacherImg = c.teacher?.profilePicture
+                ? `<img src="${esc(c.teacher.profilePicture)}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid rgba(0,212,255,0.5)">`
+                : `<i class="fas fa-user-tie"></i>`;
+
+            return `<div class="cc">
+        <span class="status-badge status-${status}">${status === 'approved' ? '✓ Approved' : '⏳ Pending'}</span>
+        <span class="cc-subject">${esc(c.subject || c.subjectSlug)}</span>
+        <div class="cc-name">${esc(c.name)}</div>
+        <div class="cc-desc">${esc(c.description || 'No description')}</div>
+        <div class="cc-teacher" style="display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:1rem">${teacherImg} ${esc(teacherName)}</div>
+        <div class="cc-stats"><span><i class="fas fa-users"></i> ${c.memberCount || 0}</span><span><i class="fas fa-calendar"></i> ${timeAgo(c.createdAt)}</span></div>
+        ${status === 'approved' ? `<div class="cc-actions">
+            <a href="/view-classroom.html?id=${c._id}" class="btn btn-primary btn-sm"><i class="fas fa-arrow-right"></i> Open</a>
+            <a href="/classroom-chat?id=${c._id}" class="btn btn-glass btn-sm"><i class="fas fa-comments"></i> Chat</a>
+        </div>` : ''}
+    </div>`;
+        }
+
+        async function loadDiscover() {
+            const search = document.getElementById('searchInput').value;
+            const res = await apiFetch(`/api/classrooms/discover?search=${encodeURIComponent(search)}`);
+            const data = await res.json();
+            const grid = document.getElementById('discoverGrid');
+            const cls = data.classrooms || [];
+            grid.innerHTML = cls.length ? cls.map(c => {
+                const st = c.membershipStatus;
+                const tImg = c.teacher?.profilePicture
+                    ? `<img src="${esc(c.teacher.profilePicture)}" style="width:24px;height:24px;border-radius:50%;object-fit:cover;border:1px solid rgba(0,212,255,0.5)">`
+                    : `<i class="fas fa-user-tie"></i>`;
+
+                return `<div class="cc">
+            ${st ? `<span class="status-badge status-${st}">${st === 'approved' ? '✓ Member' : '⏳ Pending'}</span>` : ''}
+            <span class="cc-subject">${esc(c.subject)}</span>
+            <div class="cc-name">${esc(c.name)}</div>
+            <div class="cc-desc">${esc(c.description || '')}</div>
+            <div class="cc-teacher" style="display:flex;align-items:center;gap:8px;margin-top:auto;padding-top:1rem">${tImg} ${esc(c.teacher?.name)}</div>
+            <div class="cc-stats"><span><i class="fas fa-users"></i> ${c.memberCount || 0}</span></div>
+            <div class="cc-actions">
+                ${!st ? `<button class="btn btn-primary btn-sm" onclick="joinById('${c._id}')"><i class="fas fa-plus"></i> Request to Join</button>` : `<span style="font-size:.78rem;color:var(--silver);padding:.4rem">${st === 'approved' ? 'Already a member' : 'Request pending'}</span>`}
+            </div>
+        </div>`;
+            }).join('') : '<div class="empty-state"><div class="ei">🔍</div><h3>No classrooms found</h3></div>';
+        }
+
+        async function joinByCode() {
+            const code = document.getElementById('joinCode').value.trim();
+            if (!code) { showToast('Enter a class code', 'error'); return; }
+            const btn = document.getElementById('joinBtn');
+            btn.disabled = true;
+            try {
+                const res = await apiFetch('/api/classrooms/join-by-code', { method: 'POST', body: JSON.stringify({ classCode: code }) });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
+                showToast(data.message, 'success');
+                document.getElementById('joinCode').value = '';
+                await loadMyClassrooms();
+            } catch (e) { showToast(e.message, 'error'); }
+            btn.disabled = false;
+        }
+
+        async function joinById(id) {
+            try {
+                const res = await apiFetch(`/api/classrooms/${id}/join`, { method: 'POST', body: '{}' });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.message);
+                showToast(data.message, 'success');
+                await loadMyClassrooms(); loadDiscover();
+            } catch (e) { showToast(e.message, 'error'); }
+        }
+
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.className = 'toast ' + type;
+            t.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}" style="color:var(--${type === 'success' ? 'green' : 'red'})"></i> ${msg}`;
+            t.style.display = 'flex';
+            setTimeout(() => t.style.display = 'none', 3000);
+        }
+
+        function timeAgo(d) {
+            if (!d) return ''; const ms = Date.now() - new Date(d).getTime(), m = Math.floor(ms / 60000), h = Math.floor(ms / 3600000), dy = Math.floor(ms / 86400000);
+            if (m < 1) return 'Just now'; if (m < 60) return m + 'm ago'; if (h < 24) return h + 'h ago'; if (dy < 7) return dy + 'd ago';
+            return new Date(d).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+        }
+        function esc(s) { if (!s) return ''; return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,2839 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="description"
+        content="Classgrid — AI-Native Intelligent Classroom Ecosystem. Structured management, real-time collaboration, and embedded AI in one platform.">
+    <title>Features — Classgrid</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Orbitron:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        /* ════════════════════════════════════════
+       RESET & TOKENS
+    ════════════════════════════════════════ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #060818;
+            --bg-mid: #090d1f;
+            --bg-alt: #0d1128;
+            --card: rgba(13, 17, 40, 0.95);
+            --card-h: rgba(16, 21, 50, 0.98);
+
+            --cyan: #00d4ff;
+            --cyan-lo: rgba(0, 212, 255, 0.10);
+            --cyan-md: rgba(0, 212, 255, 0.20);
+            --purple: #a855f7;
+            --pur-lo: rgba(168, 85, 247, 0.10);
+            --green: #10b981;
+            --red: #f87171;
+
+            --b0: rgba(0, 212, 255, 0.10);
+            --b1: rgba(0, 212, 255, 0.18);
+            --b2: rgba(0, 212, 255, 0.40);
+
+            --t1: #eef2ff;
+            --t2: #8b9ec7;
+            --t3: #4e5f80;
+
+            --gc: linear-gradient(135deg, #00d4ff, #a855f7);
+            --gcp: linear-gradient(135deg, #a855f7, #00d4ff);
+
+            --gc-glow: 0 0 50px rgba(0, 212, 255, 0.20);
+            --gp-glow: 0 0 50px rgba(168, 85, 247, 0.20);
+
+            --r: 18px;
+            --rs: 10px;
+
+            --font-display: 'Syne', sans-serif;
+            --font-body: 'DM Sans', sans-serif;
+            --font-mono: 'Orbitron', sans-serif;
+
+            /* Header height variable — used everywhere */
+            --hdr-h: 66px;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--t1);
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* ════════════════════════════════════════
+       BACKGROUND
+    ════════════════════════════════════════ */
+        #particles-js {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+            pointer-events: none;
+            animation: orbDrift 26s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 440px;
+            height: 440px;
+            background: rgba(0, 212, 255, 0.07);
+            top: 2%;
+            left: 2%;
+        }
+
+        .orb-2 {
+            width: 360px;
+            height: 360px;
+            background: rgba(168, 85, 247, 0.07);
+            top: 55%;
+            right: 2%;
+            animation-delay: 10s;
+        }
+
+        .orb-3 {
+            width: 280px;
+            height: 280px;
+            background: rgba(0, 212, 255, 0.05);
+            bottom: 8%;
+            left: 45%;
+            animation-delay: 5s;
+        }
+
+        @keyframes orbDrift {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1)
+            }
+
+            33% {
+                transform: translate(28px, -28px) scale(1.05)
+            }
+
+            66% {
+                transform: translate(-16px, 16px) scale(0.96)
+            }
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(0, 212, 255, 0.09) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            opacity: 0.022;
+        }
+
+        /* ════════════════════════════════════════
+       LAYOUT
+    ════════════════════════════════════════ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ════════════════════════════════════════
+       HEADER — FIXED, FULLY RESPONSIVE
+    ════════════════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 9000;
+            height: var(--hdr-h);
+            background: rgba(6, 8, 24, 0.97);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border-bottom: 1px solid var(--b1);
+            transition: border-color 0.4s, box-shadow 0.4s;
+        }
+
+        .site-header.scrolled {
+            border-color: var(--b2);
+            box-shadow: 0 2px 48px rgba(0, 0, 0, 0.75), 0 1px 0 rgba(0, 212, 255, 0.06);
+        }
+
+        .hdr-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 1rem;
+        }
+
+        /* Logo */
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            flex-shrink: 0;
+            transition: transform 0.3s;
+            min-width: 0;
+            /* allow shrinking */
+        }
+
+        .logo-link:hover {
+            transform: translateY(-1px);
+        }
+
+        .logo-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 2px solid var(--cyan);
+            box-shadow: 0 0 18px rgba(0, 212, 255, 0.45);
+            animation: logoSpin 22s linear infinite;
+        }
+
+        @keyframes logoSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo-txt {
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 1.15rem;
+            background: var(--gc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1.5px;
+            white-space: nowrap;
+        }
+
+        /* Desktop nav */
+        .main-nav {
+            display: flex;
+            gap: 0.25rem;
+            flex-shrink: 0;
+        }
+
+        .nav-link {
+            color: var(--t2);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            transition: all 0.22s;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--cyan);
+            background: var(--cyan-lo);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 18px;
+            height: 2px;
+            background: var(--gc);
+            border-radius: 2px;
+        }
+
+        /* Hamburger */
+        .ham {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 7px;
+            background: var(--cyan-lo);
+            border: 1px solid var(--b1);
+            border-radius: 8px;
+            flex-shrink: 0;
+            min-width: 40px;
+            align-items: center;
+        }
+
+        .ham span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cyan), var(--purple));
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .ham.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 7px);
+        }
+
+        .ham.open span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .ham.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -7px);
+        }
+
+        /* Mobile drawer */
+        .mob-menu {
+            position: fixed;
+            top: var(--hdr-h);
+            left: 0;
+            width: 100%;
+            background: rgba(6, 8, 24, 0.99);
+            backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--b1);
+            z-index: 8999;
+            padding: 1rem 1.25rem 1.5rem;
+            transform: translateY(-110%);
+            opacity: 0;
+            transition: transform 0.36s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.28s;
+            pointer-events: none;
+            display: block;
+            /* always in DOM, toggled via transform */
+        }
+
+        .mob-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mob-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 8998;
+        }
+
+        .mob-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mob-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .mob-link {
+            color: var(--t1);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.85rem 1.2rem;
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            justify-content: center;
+            transition: all 0.25s;
+        }
+
+        .mob-link:hover,
+        .mob-link.active {
+            background: var(--gc);
+            border-color: var(--cyan);
+            color: #fff;
+        }
+
+        /* ════════════════════════════════════════
+       SECTION UTILITIES
+    ════════════════════════════════════════ */
+        .sec {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+            background: var(--bg);
+        }
+
+        .sec-alt {
+            padding: 5rem 0;
+            position: relative;
+            z-index: 2;
+            background: var(--bg-alt);
+        }
+
+        .sec-head {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .sec-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--cyan-lo);
+            border: 1px solid var(--b1);
+            padding: 0.3rem 1rem;
+            border-radius: 50px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 0.9rem;
+        }
+
+        .sec-title {
+            font-family: var(--font-body);
+            font-size: clamp(1.75rem, 4vw, 2.7rem);
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.2px;
+            color: var(--t1);
+        }
+
+        .sec-desc {
+            font-size: 1rem;
+            color: var(--t2);
+            max-width: 560px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .divider {
+            width: 48px;
+            height: 3px;
+            background: var(--gc);
+            margin: 1.4rem auto;
+            border-radius: 2px;
+        }
+
+        /* Pill badge */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            background: var(--cyan-lo);
+            border: 1px solid var(--b1);
+            padding: 0.22rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.70rem;
+            color: var(--cyan);
+            font-weight: 600;
+            letter-spacing: 0.4px;
+        }
+
+        .simple-title {
+            font-family: var(--font-body) !important;
+            font-weight: 600 !important;
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            color: var(--t1) !important;
+            letter-spacing: -0.2px !important;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: currentColor;
+            animation: pls 2s ease-in-out infinite;
+        }
+
+        @keyframes pls {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1)
+            }
+
+            50% {
+                opacity: 0.28;
+                transform: scale(1.65)
+            }
+        }
+
+        /* ════════════════════════════════════════
+       HERO
+    ════════════════════════════════════════ */
+        .hero {
+            position: relative;
+            z-index: 2;
+            min-height: calc(100svh - var(--hdr-h));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: calc(var(--hdr-h) + 3rem) 1.5rem 4rem;
+            background: radial-gradient(ellipse 90% 60% at 50% -10%, rgba(0, 212, 255, 0.10) 0%, transparent 68%);
+        }
+
+        .hero-inner {
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: rgba(0, 212, 255, 0.07);
+            border: 1px solid rgba(0, 212, 255, 0.22);
+            padding: 0.44rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.75rem;
+            animation: heroDown 0.8s ease both;
+        }
+
+        @keyframes heroDown {
+            from {
+                opacity: 0;
+                transform: translateY(-14px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-title {
+            font-family: var(--font-body);
+            font-size: clamp(2.1rem, 6vw, 4.2rem);
+            font-weight: 600;
+            line-height: 1.12;
+            margin-bottom: 1.5rem;
+            animation: heroUp 0.9s ease 0.15s both;
+            letter-spacing: -0.3px;
+        }
+
+        .hero-title .t1 {
+            display: block;
+            color: var(--t1);
+        }
+
+        .hero-title .t2 {
+            display: block;
+            color: var(--cyan);
+        }
+
+        @keyframes heroUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .hero-sub {
+            font-size: clamp(0.95rem, 2vw, 1.12rem);
+            color: var(--t2);
+            line-height: 1.85;
+            max-width: 660px;
+            margin: 0 auto 2.25rem;
+            animation: heroUp 0.9s ease 0.28s both;
+        }
+
+        .hero-chips {
+            display: flex;
+            gap: 0.6rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2.75rem;
+            animation: heroUp 0.9s ease 0.40s both;
+        }
+
+        .hero-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 50px;
+            padding: 0.38rem 0.9rem;
+            font-size: 0.76rem;
+            color: var(--t2);
+            font-weight: 500;
+            transition: all 0.25s;
+        }
+
+        .hero-chip:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            transform: translateY(-2px);
+        }
+
+        .hero-chip i {
+            color: var(--cyan);
+            font-size: 0.68rem;
+        }
+
+        .hero-kpis {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: heroUp 0.9s ease 0.52s both;
+            border: 1px solid var(--b1);
+            border-radius: 14px;
+            overflow: hidden;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .kpi {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 1.25rem 1rem;
+            border-right: 1px solid var(--b1);
+        }
+
+        .kpi:last-child {
+            border-right: none;
+        }
+
+        .kpi-val {
+            font-family: var(--font-mono);
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: var(--gc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: block;
+        }
+
+        .kpi-lbl {
+            font-size: 0.64rem;
+            color: var(--t3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 0.2rem;
+            display: block;
+        }
+
+        /* ════════════════════════════════════════
+       PROBLEM / SOLUTION
+    ════════════════════════════════════════ */
+        .ps-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            max-width: 980px;
+            margin: 0 auto;
+        }
+
+        .ps-card {
+            border-radius: var(--r);
+            padding: 2.25rem;
+            transition: transform 0.3s;
+        }
+
+        .ps-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .ps-card.bad {
+            background: rgba(239, 68, 68, 0.04);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+        }
+
+        .ps-card.bad:hover {
+            border-color: rgba(239, 68, 68, 0.35);
+        }
+
+        .ps-card.good {
+            background: rgba(16, 185, 129, 0.04);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .ps-card.good:hover {
+            border-color: rgba(16, 185, 129, 0.35);
+        }
+
+        .ps-title {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .ps-title.r {
+            color: #f87171;
+        }
+
+        .ps-title.g {
+            color: #34d399;
+        }
+
+        /* ── Clean list rows ── */
+        .ps-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .ps-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            font-size: 0.90rem;
+            color: var(--t2);
+            line-height: 1.55;
+        }
+
+        .ps-list li .ico {
+            font-size: 0.68rem;
+            margin-top: 4px;
+            flex-shrink: 0;
+        }
+
+        .ps-list li .ico.r {
+            color: #f87171;
+        }
+
+        .ps-list li .ico.g {
+            color: #34d399;
+        }
+
+        /* ════════════════════════════════════════
+       FACULTY FEATURES — numbered cards
+    ════════════════════════════════════════ */
+        .feat-list {
+            display: grid;
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .feat-item {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            padding: 2rem 2.25rem;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s;
+            display: flex;
+            gap: 1.75rem;
+            align-items: flex-start;
+        }
+
+        .feat-item:hover {
+            border-color: var(--cyan);
+            transform: translateX(8px);
+            box-shadow: var(--gc-glow);
+            background: var(--card-h);
+        }
+
+        .feat-n {
+            font-family: var(--font-mono);
+            font-size: 1.85rem;
+            font-weight: 900;
+            background: var(--gc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            flex-shrink: 0;
+            min-width: 56px;
+            line-height: 1;
+            padding-top: 3px;
+        }
+
+        .feat-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .feat-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .feat-title {
+            font-family: var(--font-body);
+            font-size: 1.02rem;
+            font-weight: 700;
+        }
+
+        .feat-desc {
+            color: var(--t2);
+            font-size: 0.90rem;
+            line-height: 1.74;
+        }
+
+        /* ════════════════════════════════════════
+       STUDENT CARDS
+    ════════════════════════════════════════ */
+        .stu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stu-card {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            overflow: hidden;
+            transition: all 0.3s;
+            backdrop-filter: blur(14px);
+        }
+
+        .stu-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--cyan);
+            box-shadow: var(--gc-glow);
+        }
+
+        .stu-top {
+            height: 3px;
+            background: var(--gc);
+        }
+
+        .stu-body {
+            padding: 2rem;
+        }
+
+        .stu-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 1.2rem;
+        }
+
+        .stu-tag {
+            display: inline-block;
+            background: var(--cyan-lo);
+            color: var(--cyan);
+            padding: 0.22rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .stu-title {
+            font-family: var(--font-body);
+            font-size: 0.97rem;
+            font-weight: 700;
+            margin-bottom: 0.65rem;
+        }
+
+        .stu-desc {
+            color: var(--t2);
+            font-size: 0.85rem;
+            line-height: 1.72;
+        }
+
+        /* ════════════════════════════════════════
+       AI SHOWCASE
+    ════════════════════════════════════════ */
+        .ai-outer {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .ai-panel {
+            background: var(--card);
+            border: 1px solid rgba(168, 85, 247, 0.28);
+            border-radius: 24px;
+            padding: 3.5rem;
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ai-panel::before {
+            content: '';
+            position: absolute;
+            top: -35%;
+            right: -12%;
+            width: 480px;
+            height: 480px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.11) 0%, transparent 68%);
+            pointer-events: none;
+        }
+
+        .ai-panel::after {
+            content: '';
+            position: absolute;
+            bottom: -25%;
+            left: -8%;
+            width: 380px;
+            height: 380px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.07) 0%, transparent 68%);
+            pointer-events: none;
+        }
+
+        .ai-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), rgba(0, 212, 255, 0.15));
+            border: 1px solid rgba(168, 85, 247, 0.32);
+            padding: 0.40rem 1.05rem;
+            border-radius: 50px;
+            font-size: 0.70rem;
+            font-weight: 700;
+            color: var(--purple);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+        }
+
+        .ai-title {
+            font-family: var(--font-body);
+            font-size: clamp(1.4rem, 3vw, 2.1rem);
+            font-weight: 600;
+            margin-bottom: 0.9rem;
+            letter-spacing: -0.2px;
+            color: var(--t1);
+        }
+
+        .ai-sub {
+            font-size: 0.98rem;
+            color: var(--t2);
+            margin-bottom: 2.4rem;
+            line-height: 1.82;
+            max-width: 660px;
+        }
+
+        .ai-caps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(168px, 1fr));
+            gap: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ai-cap {
+            background: rgba(168, 85, 247, 0.06);
+            border: 1px solid rgba(168, 85, 247, 0.16);
+            border-radius: 13px;
+            padding: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .ai-cap:hover {
+            background: rgba(168, 85, 247, 0.13);
+            border-color: rgba(168, 85, 247, 0.42);
+            transform: translateY(-5px);
+            box-shadow: var(--gp-glow);
+        }
+
+        .ai-cap-ico {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ai-cap-t {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.28rem;
+        }
+
+        .ai-cap-d {
+            font-size: 0.74rem;
+            color: var(--t3);
+            line-height: 1.54;
+        }
+
+        .ai-note {
+            margin-top: 2.2rem;
+            padding: 1.1rem 1.4rem;
+            background: rgba(0, 212, 255, 0.05);
+            border-left: 3px solid var(--cyan);
+            border-radius: 0 12px 12px 0;
+            font-size: 0.86rem;
+            color: var(--t2);
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ════════════════════════════════════════
+       ARCHITECTURE
+    ════════════════════════════════════════ */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .arch-card {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            padding: 1.9rem;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s;
+        }
+
+        .arch-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-6px);
+            box-shadow: var(--gc-glow);
+        }
+
+        .arch-ico {
+            width: 46px;
+            height: 46px;
+            background: var(--gc);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .arch-layer {
+            font-size: 0.64rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.35rem;
+        }
+
+        .arch-name {
+            font-family: var(--font-body);
+            font-size: 0.97rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .arch-list {
+            list-style: none;
+        }
+
+        .arch-list li {
+            font-size: 0.82rem;
+            color: var(--t2);
+            padding: 0.30rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .arch-list li::before {
+            content: '›';
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .arch-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* ════════════════════════════════════════
+       LOGIN PROVIDERS
+    ════════════════════════════════════════ */
+        .lp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 1.35rem;
+            margin-bottom: 2rem;
+        }
+
+        .lp-card {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            padding: 1.85rem;
+            text-align: center;
+            transition: all 0.3s;
+            backdrop-filter: blur(14px);
+        }
+
+        .lp-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .lp-card.google:hover {
+            border-color: #ea4335;
+            box-shadow: 0 16px 44px rgba(234, 67, 53, 0.16);
+        }
+
+        .lp-card.github:hover {
+            border-color: #8b949e;
+            box-shadow: 0 16px 44px rgba(139, 148, 158, 0.16);
+        }
+
+        .lp-card.linkedin:hover {
+            border-color: #0a66c2;
+            box-shadow: 0 16px 44px rgba(10, 102, 194, 0.16);
+        }
+
+        .lp-card.email:hover {
+            border-color: var(--cyan);
+            box-shadow: var(--gc-glow);
+        }
+
+        .lp-ico {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 1rem;
+        }
+
+        .google .lp-ico {
+            background: rgba(234, 67, 53, 0.12);
+            color: #ea4335;
+        }
+
+        .github .lp-ico {
+            background: rgba(139, 148, 158, 0.12);
+            color: #c9d1d9;
+        }
+
+        .linkedin.lp-ico {
+            background: rgba(10, 102, 194, 0.12);
+            color: #4d90d6;
+        }
+
+        .email .lp-ico {
+            background: var(--cyan-lo);
+            color: var(--cyan);
+        }
+
+        .lp-name {
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 0.42rem;
+        }
+
+        .lp-desc {
+            font-size: 0.78rem;
+            color: var(--t3);
+            line-height: 1.55;
+        }
+
+        /* Email flow box */
+        .ef-box {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            padding: 2.75rem 2.5rem;
+            backdrop-filter: blur(14px);
+        }
+
+        .ef-head {
+            font-family: var(--font-body);
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: center;
+            color: var(--cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-bottom: 2.2rem;
+        }
+
+        .ef-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .ef-step {
+            flex: 1;
+            min-width: 130px;
+            padding: 1.1rem 0.75rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .ef-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -6px;
+            top: 32%;
+            font-size: 1rem;
+            color: var(--cyan);
+            opacity: 0.38;
+        }
+
+        .ef-num {
+            width: 28px;
+            height: 28px;
+            background: var(--gc);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.76rem;
+            margin: 0 auto 0.65rem;
+        }
+
+        .ef-icon {
+            font-size: 1.4rem;
+            margin-bottom: 0.48rem;
+        }
+
+        .ef-t {
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            font-weight: 700;
+            margin-bottom: 0.28rem;
+        }
+
+        .ef-d {
+            font-size: 0.72rem;
+            color: var(--t3);
+            line-height: 1.5;
+        }
+
+        .sec-note {
+            margin-top: 1.5rem;
+            padding: 1.1rem 1.4rem;
+            background: rgba(16, 185, 129, 0.07);
+            border: 1px solid rgba(16, 185, 129, 0.18);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.9rem;
+            font-size: 0.85rem;
+            color: var(--t2);
+        }
+
+        .sec-note i {
+            color: var(--green);
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ════════════════════════════════════════
+       SECURITY GRID
+    ════════════════════════════════════════ */
+        .sec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .sec-card {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: var(--r);
+            padding: 2.1rem;
+            text-align: center;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s;
+        }
+
+        .sec-card:hover {
+            border-color: var(--cyan);
+            transform: translateY(-6px);
+            box-shadow: var(--gc-glow);
+        }
+
+        .sec-ico {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--cyan-lo);
+            border: 1px solid var(--b1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .sec-card:hover .sec-ico {
+            border-color: var(--cyan);
+            box-shadow: var(--gc-glow);
+        }
+
+        .sec-ico i {
+            font-size: 1.45rem;
+            color: var(--cyan);
+        }
+
+        .sec-t {
+            font-family: var(--font-body);
+            font-size: 0.92rem;
+            font-weight: 700;
+            margin-bottom: 0.45rem;
+        }
+
+        .sec-d {
+            font-size: 0.81rem;
+            color: var(--t2);
+            line-height: 1.65;
+        }
+
+        /* ════════════════════════════════════════
+       ROADMAP
+    ════════════════════════════════════════ */
+        .road-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
+            gap: 1.35rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .road-card {
+            background: rgba(0, 212, 255, 0.03);
+            border: 1px dashed rgba(0, 212, 255, 0.22);
+            border-radius: var(--r);
+            padding: 1.75rem;
+            transition: all 0.3s;
+        }
+
+        .road-card:hover {
+            background: rgba(0, 212, 255, 0.07);
+            border-style: solid;
+            border-color: rgba(0, 212, 255, 0.42);
+            transform: translateY(-5px);
+            box-shadow: var(--gc-glow);
+        }
+
+        .road-ico {
+            font-size: 1.45rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .road-t {
+            font-family: var(--font-body);
+            font-size: 0.90rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+        }
+
+        .road-d {
+            font-size: 0.78rem;
+            color: var(--t3);
+            line-height: 1.55;
+        }
+
+        /* ════════════════════════════════════════
+       ABOUT
+    ════════════════════════════════════════ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .about-lead {
+            font-size: 1.18rem;
+            color: var(--t2);
+            line-height: 1.88;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-lead strong {
+            color: var(--t1);
+            font-weight: 600;
+        }
+
+        .about-body {
+            font-size: 0.92rem;
+            color: var(--t2);
+            line-height: 1.82;
+            margin-bottom: 1.1rem;
+        }
+
+        .name-box {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 16px;
+            padding: 1.85rem;
+            margin-top: 1.75rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .name-row {
+            display: flex;
+            gap: 1.1rem;
+            align-items: flex-start;
+            margin-bottom: 1.1rem;
+        }
+
+        .name-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .name-word {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            font-weight: 800;
+            background: var(--gc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            min-width: 82px;
+            flex-shrink: 0;
+        }
+
+        .name-def {
+            font-size: 0.85rem;
+            color: var(--t2);
+            line-height: 1.55;
+            padding-top: 1px;
+        }
+
+        .pillars {
+            display: flex;
+            flex-direction: column;
+            gap: 1.05rem;
+        }
+
+        .pillar {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 16px;
+            padding: 1.55rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(12px);
+        }
+
+        .pillar:hover {
+            border-color: var(--cyan);
+            transform: translateX(7px);
+            box-shadow: var(--gc-glow);
+        }
+
+        .pillar-hd {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.55rem;
+        }
+
+        .pillar-ico {
+            font-size: 1.25rem;
+        }
+
+        .pillar-t {
+            font-family: var(--font-body);
+            font-size: 0.93rem;
+            font-weight: 500;
+            color: var(--t1);
+        }
+
+        .pillar-d {
+            font-size: 0.88rem;
+            color: var(--t2);
+            line-height: 1.70;
+            font-weight: 400;
+        }
+
+        /* ════════════════════════════════════════
+       VISION / PRICING
+    ════════════════════════════════════════ */
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 1.75rem;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .v-tier {
+            background: var(--card);
+            border: 1px solid var(--b1);
+            border-radius: 24px;
+            padding: 2.75rem;
+            backdrop-filter: blur(14px);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .v-tier.pro {
+            border-color: rgba(0, 212, 255, 0.28);
+            box-shadow: var(--gc-glow);
+        }
+
+        .v-tier.pro::before {
+            content: 'COMING SOON';
+            position: absolute;
+            top: 1.3rem;
+            right: -2rem;
+            background: var(--gc);
+            padding: 0.24rem 2.8rem;
+            font-size: 0.58rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            transform: rotate(35deg);
+            color: #fff;
+        }
+
+        .v-tier:hover {
+            transform: translateY(-7px);
+        }
+
+        .v-name {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.42rem;
+            color: var(--cyan);
+        }
+
+        .v-tag {
+            font-size: 0.82rem;
+            color: var(--t3);
+            margin-bottom: 1.6rem;
+        }
+
+        .v-feats {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .v-feats li {
+            font-size: 0.86rem;
+            color: var(--t2);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            line-height: 1.5;
+        }
+
+        .v-feats li i {
+            color: var(--green);
+            font-size: 0.72rem;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
+        /* ════════════════════════════════════════
+       CTA
+    ════════════════════════════════════════ */
+        .cta-sec {
+            position: relative;
+            padding: 7rem 0;
+            overflow: hidden;
+            z-index: 2;
+            background: var(--bg);
+        }
+
+        .cta-aura {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.07) 0%, rgba(168, 85, 247, 0.04) 50%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 340px;
+            height: 340px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 212, 255, 0.09);
+            animation: ringPulse 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .cta-ring::before {
+            content: '';
+            position: absolute;
+            inset: -22px;
+            border-radius: 50%;
+            border: 1px solid rgba(168, 85, 247, 0.07);
+            animation: ringPulse 4s ease-in-out infinite 1s;
+        }
+
+        @keyframes ringPulse {
+
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.06);
+                opacity: 0.5
+            }
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .cta-eyebrow {
+            display: inline-block;
+            background: var(--cyan-lo);
+            border: 1px solid var(--b1);
+            padding: 0.28rem 0.95rem;
+            border-radius: 50px;
+            font-size: 0.66rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.3rem;
+        }
+
+        .cta-title {
+            font-family: var(--font-body);
+            font-size: clamp(1.85rem, 4.5vw, 3rem);
+            font-weight: 600;
+            margin-bottom: 1.1rem;
+            letter-spacing: -0.2px;
+            color: var(--t1);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--t2);
+            margin-bottom: 2.75rem;
+            line-height: 1.82;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.25rem;
+            background: var(--gc);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.93rem;
+            border-radius: 12px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 26px rgba(0, 212, 255, 0.30);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.48);
+        }
+
+        /* ════════════════════════════════════════
+       FOOTER
+    ════════════════════════════════════════ */
+        .site-footer {
+            position: relative;
+            z-index: 2;
+            background: #040611;
+            padding: 4.5rem 0 2.25rem;
+            border-top: 1px solid var(--b1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .f-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.1rem;
+        }
+
+        .f-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+        }
+
+        .f-tag {
+            color: var(--t3);
+            font-size: 0.83rem;
+            line-height: 1.78;
+        }
+
+        .f-hd {
+            font-family: var(--font-mono);
+            font-size: 0.73rem;
+            font-weight: 700;
+            color: var(--cyan);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .f-links,
+        .f-contacts {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .f-links a,
+        .f-contacts a {
+            color: var(--t2);
+            text-decoration: none;
+            font-size: 0.84rem;
+            transition: color 0.25s;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        .f-links a:hover,
+        .f-contacts a:hover {
+            color: var(--cyan);
+        }
+
+        .f-contacts i {
+            color: var(--cyan);
+            width: 15px;
+            flex-shrink: 0;
+        }
+
+        .f-bottom {
+            padding-top: 1.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
+            color: var(--t3);
+            font-size: 0.78rem;
+        }
+
+        /* ════════════════════════════════════════
+       SCROLL REVEAL
+    ════════════════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 0.62s ease, transform 0.62s ease;
+        }
+
+        .reveal.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stag>* {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.52s ease, transform 0.52s ease;
+        }
+
+        .stag.vis>*:nth-child(1) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.04s
+        }
+
+        .stag.vis>*:nth-child(2) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.12s
+        }
+
+        .stag.vis>*:nth-child(3) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.20s
+        }
+
+        .stag.vis>*:nth-child(4) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.28s
+        }
+
+        .stag.vis>*:nth-child(5) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.36s
+        }
+
+        .stag.vis>*:nth-child(6) {
+            opacity: 1;
+            transform: none;
+            transition-delay: 0.44s
+        }
+
+        /* ════════════════════════════════════════
+       RESPONSIVE — MOBILE FIRST
+    ════════════════════════════════════════ */
+
+        /* Tablet */
+        @media(max-width:900px) {
+            .ps-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.75rem;
+            }
+
+            .ai-caps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile */
+        @media(max-width:768px) {
+            :root {
+                --hdr-h: 60px;
+            }
+
+            .main-nav {
+                display: none;
+            }
+
+            .ham {
+                display: flex;
+            }
+
+            .logo-txt {
+                font-size: 1.05rem;
+                letter-spacing: 1px;
+            }
+
+            .logo-img {
+                width: 34px;
+                height: 34px;
+            }
+
+            .hdr-inner {
+                padding: 0 1rem;
+            }
+
+            .hero {
+                padding: calc(var(--hdr-h) + 2.25rem) 1rem 3rem;
+                min-height: auto;
+            }
+
+            .sec,
+            .sec-alt {
+                padding: 3.5rem 0;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .feat-item {
+                flex-direction: column;
+                gap: 0.85rem;
+                padding: 1.6rem;
+            }
+
+            .feat-item:hover {
+                transform: none;
+            }
+
+            .stu-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .ef-steps {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .ef-step:not(:last-child)::after {
+                display: none;
+            }
+
+            .ef-step {
+                min-width: 100%;
+                border-bottom: 1px solid var(--b0);
+                padding: 1rem 0.5rem;
+            }
+
+            .ef-step:last-child {
+                border-bottom: none;
+            }
+
+            .ai-panel {
+                padding: 2rem 1.5rem;
+            }
+
+            .ef-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-grid {
+                gap: 2.25rem;
+            }
+
+            .arch-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .road-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sec-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Small mobile */
+        @media(max-width:520px) {
+            :root {
+                --hdr-h: 56px;
+            }
+
+            .logo-txt {
+                font-size: 0.95rem;
+                letter-spacing: 0.8px;
+            }
+
+            .logo-img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .hero-title {
+                font-size: clamp(1.85rem, 8vw, 2.8rem);
+            }
+
+            .hero-chips {
+                gap: 0.45rem;
+            }
+
+            .kpi {
+                padding: 1rem 0.75rem;
+            }
+
+            .kpi-val {
+                font-size: 1.35rem;
+            }
+
+            .stu-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ai-caps {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .sec-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .arch-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .road-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ps-card {
+                padding: 1.6rem;
+            }
+
+            .feat-item {
+                padding: 1.35rem;
+            }
+
+            .ai-panel {
+                padding: 1.6rem 1.25rem;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-sec {
+                padding: 5rem 0;
+            }
+
+            .cta-ring {
+                width: 260px;
+                height: 260px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="mob-overlay" id="overlay"></div>
+
+    <!-- ══════ HEADER ══════ -->
+    <header class="site-header" id="hdr">
+        <div class="hdr-inner">
+            <a href="index" class="logo-link">
+                <img src="/Classgrid.png" alt="Classgrid" class="logo-img">
+                <span class="logo-txt">Classgrid</span>
+            </a>
+            <nav class="main-nav">
+                <a href="index" class="nav-link">Home</a>
+                <a href="features" class="nav-link active">Features</a>
+            </nav>
+            <button type="button" class="ham" id="ham" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <div class="mob-menu" id="mob">
+        <div class="mob-links">
+            <a href="index" class="mob-link"><i class="fas fa-home"></i> Home</a>
+            <a href="features" class="mob-link active"><i class="fas fa-star"></i> Features</a>
+        </div>
+    </div>
+
+    <!-- ══════ HERO ══════ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-inner">
+                <div class="hero-eyebrow"><span class="dot"></span> AI-Native Classroom Platform</div>
+                <h1 class="hero-title">
+                    <span class="t1">The Intelligent</span>
+                    <span class="t2">Classroom Ecosystem</span>
+                </h1>
+                <p class="hero-sub">Classgrid transforms traditional online classrooms into intelligent, AI-powered
+                    academic environments — structured management, real-time collaboration, and embedded AI in one
+                    unified platform.</p>
+                <div class="hero-chips">
+                    <span class="hero-chip"><i class="fas fa-robot"></i> AI-Native Core</span>
+                    <span class="hero-chip"><i class="fas fa-bolt"></i> Real-Time Sync</span>
+                    <span class="hero-chip"><i class="fas fa-shield-alt"></i> JWT Encrypted</span>
+                    <span class="hero-chip"><i class="fas fa-users"></i> 4 Login Providers</span>
+                    <span class="hero-chip"><i class="fas fa-brain"></i> Groq + Gemini AI</span>
+                </div>
+                <div class="hero-kpis">
+                    <div class="kpi"><span class="kpi-val">4</span><span class="kpi-lbl">Login Providers</span></div>
+                    <div class="kpi"><span class="kpi-val">AI</span><span class="kpi-lbl">Core Engine</span></div>
+                    <div class="kpi"><span class="kpi-val">∞</span><span class="kpi-lbl">Real-Time</span></div>
+                    <div class="kpi"><span class="kpi-val">JWT</span><span class="kpi-lbl">Encrypted</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ PROBLEM / SOLUTION ══════ -->
+    <section class="sec-alt">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-exclamation-triangle"></i> Why Classgrid</div>
+                <h2 class="sec-title">The Problem We Solve</h2>
+                <p class="sec-desc">Modern online classrooms are fragmented, passive, and completely disconnected from
+                    any real intelligence layer.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="ps-wrap reveal">
+                <div class="ps-card bad">
+                    <div class="ps-title r"><i class="fas fa-times-circle"></i> Without Classgrid</div>
+                    <ul class="ps-list">
+                        <li><i class="fas fa-times ico r"></i> No intelligent engagement tracking whatsoever</li>
+                        <li><i class="fas fa-times ico r"></i> Fragmented tools — notes, chat, AI all separate</li>
+                        <li><i class="fas fa-times ico r"></i> AI bolted on externally, not embedded in workflow</li>
+                        <li><i class="fas fa-times ico r"></i> Limited faculty visibility and real-time control</li>
+                        <li><i class="fas fa-times ico r"></i> Low student participation infrastructure</li>
+                        <li><i class="fas fa-times ico r"></i> Manual, time-consuming content management</li>
+                        <li><i class="fas fa-times ico r"></i> No unified academic intelligence system</li>
+                    </ul>
+                </div>
+                <div class="ps-card good">
+                    <div class="ps-title g"><i class="fas fa-check-circle"></i> With Classgrid</div>
+                    <ul class="ps-list">
+                        <li><i class="fas fa-check ico g"></i> Role-based architecture with full faculty command</li>
+                        <li><i class="fas fa-check ico g"></i> Real-time collaboration built into every layer</li>
+                        <li><i class="fas fa-check ico g"></i> AI embedded directly inside the classroom workflow</li>
+                        <li><i class="fas fa-check ico g"></i> Live monitoring with complete situational awareness</li>
+                        <li><i class="fas fa-check ico g"></i> Structured content delivery with minimal friction</li>
+                        <li><i class="fas fa-check ico g"></i> Enterprise-grade authentication &amp; security</li>
+                        <li><i class="fas fa-check ico g"></i> One scalable, unified intelligence platform</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ FACULTY ══════ -->
+    <section class="sec">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-chalkboard-teacher"></i> Faculty Layer</div>
+                <h2 class="sec-title">Faculty Intelligence Layer</h2>
+                <p class="sec-desc">Centralized academic command — full control, real-time visibility, and structured
+                    content management all in one place.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="feat-list">
+                <div class="feat-item reveal">
+                    <div class="feat-n">01</div>
+                    <div class="feat-body">
+                        <div class="feat-row"><span class="feat-title">Secure Faculty Access</span><span class="pill"><i
+                                    class="fas fa-lock"></i> Authentication</span></div>
+                        <p class="feat-desc">Multi-provider login: Google, GitHub, LinkedIn, and Email/Password. All
+                            sessions encrypted with JWT. A security notification email is sent automatically every time
+                            a login occurs — complete account awareness at all times.</p>
+                    </div>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-n">02</div>
+                    <div class="feat-body">
+                        <div class="feat-row"><span class="feat-title">Intelligent Faculty Dashboard</span><span
+                                class="pill"><i class="fas fa-tachometer-alt"></i> Command Center</span></div>
+                        <p class="feat-desc">Centralized classroom control panel: profile management, active classroom
+                            overview, real-time student counts, notifications, and recent activity logs — everything
+                            faculty need, always at a glance.</p>
+                    </div>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-n">03</div>
+                    <div class="feat-body">
+                        <div class="feat-row"><span class="feat-title">Classroom Management System</span><span
+                                class="pill"><i class="fas fa-tasks"></i> Full Control</span></div>
+                        <p class="feat-desc">Approve or reject join requests, monitor student activity, track
+                            engagement, manage live classroom presence, and control access permissions. Real-time,
+                            flexible management that replaces traditional LMS rigidity entirely.</p>
+                    </div>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-n">04</div>
+                    <div class="feat-body">
+                        <div class="feat-row"><span class="feat-title">Structured Content Management</span><span
+                                class="pill"><i class="fas fa-book-open"></i> Content</span></div>
+                        <p class="feat-desc">Upload notes, post announcements, create quizzes, edit materials, remove
+                            outdated content — all from one structured hub. Designed for frictionless delivery, not
+                            tedious administration.</p>
+                    </div>
+                </div>
+                <div class="feat-item reveal">
+                    <div class="feat-n">05</div>
+                    <div class="feat-body">
+                        <div class="feat-row"><span class="feat-title">Real-Time Monitoring</span><span class="pill"><i
+                                    class="fas fa-broadcast-tower"></i> Live</span></div>
+                        <p class="feat-desc">Active student tracking, chat activity monitoring, and participation
+                            visibility — all live. Full situational awareness so faculty always know exactly who is
+                            engaged, what's being discussed, and when to intervene.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ STUDENT ══════ -->
+    <section class="sec-alt">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-graduation-cap"></i> Student Layer</div>
+                <h2 class="sec-title">Student Experience Layer</h2>
+                <p class="sec-desc">Personalized learning, live collaboration, and peer knowledge sharing — engineered
+                    to maximize participation and confidence.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="stu-grid stag">
+                <div class="stu-card">
+                    <div class="stu-top"></div>
+                    <div class="stu-body">
+                        <div class="stu-icon"><i class="fas fa-door-open"></i></div><span class="stu-tag">Access</span>
+                        <h3 class="stu-title">Flexible Classroom Entry</h3>
+                        <p class="stu-desc">Join instantly via classroom code or send an approval-based request.
+                            Dashboard displays enrolled classes, notifications, and academic updates on every login.</p>
+                    </div>
+                </div>
+                <div class="stu-card">
+                    <div class="stu-top"></div>
+                    <div class="stu-body">
+                        <div class="stu-icon"><i class="fas fa-book-reader"></i></div><span class="stu-tag">Learn</span>
+                        <h3 class="stu-title">Structured Learning Access</h3>
+                        <p class="stu-desc">View notes, access announcements, attempt quizzes, and stay synchronized
+                            with class content in real time — always current, never behind.</p>
+                    </div>
+                </div>
+                <div class="stu-card">
+                    <div class="stu-top"></div>
+                    <div class="stu-body">
+                        <div class="stu-icon"><i class="fas fa-comments"></i></div><span class="stu-tag">Interact</span>
+                        <h3 class="stu-title">Real-Time Academic Chat</h3>
+                        <p class="stu-desc">Live collaboration for doubts, peer discussion, and academic exchange — an
+                            interactive dynamic that mirrors in-person learning and drives genuine engagement.</p>
+                    </div>
+                </div>
+                <div class="stu-card">
+                    <div class="stu-top"></div>
+                    <div class="stu-body">
+                        <div class="stu-icon"><i class="fas fa-share-alt"></i></div><span
+                            class="stu-tag">Contribute</span>
+                        <h3 class="stu-title">Student Contribution Layer</h3>
+                        <p class="stu-desc">Dedicated peer knowledge section: upload notes, share resources. Faculty and
+                            student content structured separately — collaborative without conflict.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ AI ══════ -->
+    <section class="sec">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-robot"></i> Core Intelligence</div>
+                <h2 class="sec-title">Classgrid AI</h2>
+                <p class="sec-desc">Not an add-on. Not a chatbot. System-integrated intelligence embedded directly into
+                    the classroom architecture.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="ai-outer">
+                <div class="ai-panel reveal">
+                    <div class="ai-badge"><span class="dot"></span> Live Intelligence Engine</div>
+                    <h3 class="ai-title">AI-Native Academic Infrastructure</h3>
+                    <p class="ai-sub">Classgrid AI operates simultaneously as a doubt-solving assistant, academic
+                        helper, classroom monitoring layer, and intelligent system supervisor — inside the workflow, not
+                        alongside it.</p>
+                    <div class="ai-caps">
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">⚡</div>
+                            <div class="ai-cap-t">Instant Doubt Resolution</div>
+                            <div class="ai-cap-d">Answers student questions in real time without waiting for faculty
+                                response.</div>
+                        </div>
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">📝</div>
+                            <div class="ai-cap-t">Quiz Generation</div>
+                            <div class="ai-cap-d">Auto-creates quizzes and assessments directly from uploaded notes.
+                            </div>
+                        </div>
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">📋</div>
+                            <div class="ai-cap-t">Lecture Summarization</div>
+                            <div class="ai-cap-d">Condenses lectures and materials into structured, digestible
+                                summaries.</div>
+                        </div>
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">👁️</div>
+                            <div class="ai-cap-t">Behavioral Insights</div>
+                            <div class="ai-cap-d">Monitors classroom engagement patterns and surfaces faculty insights.
+                            </div>
+                        </div>
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">🤝</div>
+                            <div class="ai-cap-t">Faculty Content Support</div>
+                            <div class="ai-cap-d">Assists faculty in managing and organizing academic content
+                                intelligently.</div>
+                        </div>
+                        <div class="ai-cap">
+                            <div class="ai-cap-ico">🎓</div>
+                            <div class="ai-cap-t">Academic Assistance</div>
+                            <div class="ai-cap-d">Contextual academic help aligned directly with classroom curriculum.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ai-note"><strong>AI Routing Logic:</strong> Primary inference via Groq API (LLaMA). If
+                        primary provider hits rate limits, the system auto-falls back to Gemini Flash — ensuring
+                        continuous uptime and zero learning interruption.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ LOGIN ══════ -->
+    <section class="sec-alt">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-sign-in-alt"></i> Authentication</div>
+                <h2 class="sec-title simple-title">Secure Login System</h2>
+                <p class="sec-desc">Four authentication providers with enterprise-grade security. Every login triggers
+                    an automatic security notification.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="lp-grid stag">
+                <div class="lp-card google">
+                    <div class="lp-ico"><img
+                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/250px-Google_%22G%22_logo.svg.png"
+                            alt="Google" style="width:36px;height:36px;object-fit:contain;"></div>
+                    <div class="lp-name">Google</div>
+                    <p class="lp-desc">Officially verified Google OAuth. One-click secure authentication — fully
+                        compliant and audited.</p>
+                </div>
+                <div class="lp-card github">
+                    <div class="lp-ico"><i class="fab fa-github"></i></div>
+                    <div class="lp-name">GitHub</div>
+                    <p class="lp-desc">GitHub social login for seamless, developer-friendly one-click authentication.
+                    </p>
+                </div>
+                <div class="lp-card linkedin">
+                    <div class="lp-ico"><img src="https://cdn-icons-png.flaticon.com/512/2496/2496097.png"
+                            alt="LinkedIn" style="width:36px;height:36px;object-fit:contain;"></div>
+                    <div class="lp-name">LinkedIn</div>
+                    <p class="lp-desc">Professional identity login via LinkedIn for academic and institutional users.
+                    </p>
+                </div>
+                <div class="lp-card email">
+                    <div class="lp-ico"><i class="fas fa-envelope"></i></div>
+                    <div class="lp-name">Email &amp; Password</div>
+                    <p class="lp-desc">Traditional account creation with email verification and bcrypt password hashing.
+                    </p>
+                </div>
+            </div>
+            <div class="ef-box reveal">
+                <div class="ef-head"><i class="fas fa-envelope"></i> Email / Password Registration Flow</div>
+                <div class="ef-steps">
+                    <div class="ef-step">
+                        <div class="ef-num">1</div>
+                        <div class="ef-icon">📝</div>
+                        <div class="ef-t">Enter Details</div>
+                        <div class="ef-d">Full name and email address to begin registration.</div>
+                    </div>
+                    <div class="ef-step">
+                        <div class="ef-num">2</div>
+                        <div class="ef-icon">📧</div>
+                        <div class="ef-t">Verify Email</div>
+                        <div class="ef-d">Verification email sent. Click the link to confirm.</div>
+                    </div>
+                    <div class="ef-step">
+                        <div class="ef-num">3</div>
+                        <div class="ef-icon">🔐</div>
+                        <div class="ef-t">Set Password</div>
+                        <div class="ef-d">Create secure password — stored with bcrypt hashing.</div>
+                    </div>
+                    <div class="ef-step">
+                        <div class="ef-num">4</div>
+                        <div class="ef-icon">✅</div>
+                        <div class="ef-t">Login Active</div>
+                        <div class="ef-d">Account active. Redirected to personalized dashboard.</div>
+                    </div>
+                    <div class="ef-step">
+                        <div class="ef-num">5</div>
+                        <div class="ef-icon">🔔</div>
+                        <div class="ef-t">Security Alert</div>
+                        <div class="ef-d">Notification email sent every time you sign in, from any provider.</div>
+                    </div>
+                </div>
+                <div class="sec-note">
+                    <i class="fas fa-shield-alt"></i>
+                    <span><strong>Security policy:</strong> Every successful login — Google, GitHub, LinkedIn, or
+                        Email/Password — triggers an automatic security notification email. You are always informed of
+                        every account access event.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ ARCHITECTURE ══════ -->
+    <section class="sec">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-layer-group"></i> Architecture</div>
+                <h2 class="sec-title">Technical Architecture</h2>
+                <p class="sec-desc">Built for scalability, reliability, and institutional adoption from the ground up.
+                </p>
+                <div class="divider"></div>
+            </div>
+            <div class="arch-grid stag">
+                <div class="arch-card">
+                    <div class="arch-ico"><i class="fas fa-desktop"></i></div>
+                    <div class="arch-layer">Frontend</div>
+                    <div class="arch-name">Web Interface</div>
+                    <ul class="arch-list">
+                        <li>Responsive on any device</li>
+                        <li>Real-time state updates</li>
+                        <li>Role-based UI rendering</li>
+                        <li>Mobile-first optimized</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-ico"><i class="fas fa-database"></i></div>
+                    <div class="arch-layer">Persistence</div>
+                    <div class="arch-name">MongoDB</div>
+                    <ul class="arch-list">
+                        <li>User &amp; role data</li>
+                        <li>All classroom content</li>
+                        <li>Quiz &amp; notes storage</li>
+                        <li>Full activity history</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-ico"><i class="fas fa-bolt"></i></div>
+                    <div class="arch-layer">Real-Time</div>
+                    <div class="arch-name">Supabase</div>
+                    <ul class="arch-list">
+                        <li>Live student tracking</li>
+                        <li>Chat synchronization</li>
+                        <li>Event broadcasting</li>
+                        <li>Presence monitoring</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <div class="arch-ico"><i class="fas fa-brain"></i></div>
+                    <div class="arch-layer">AI Layer</div>
+                    <div class="arch-name">Dual AI Routing</div>
+                    <ul class="arch-list">
+                        <li>Groq API (Primary)</li>
+                        <li>LLaMA inference engine</li>
+                        <li>Gemini Flash (Fallback)</li>
+                        <li>Auto-routing on limit</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ SECURITY ══════ -->
+    <section class="sec-alt">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-shield-alt"></i> Security</div>
+                <h2 class="sec-title">Enterprise-Grade Security</h2>
+                <p class="sec-desc">Multi-layered security infrastructure designed for institutional adoption and
+                    compliance.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="sec-grid stag">
+                <div class="sec-card">
+                    <div class="sec-ico">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="28" height="28">
+                            <path fill="#EA4335"
+                                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                            <path fill="#4285F4"
+                                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                            <path fill="#FBBC05"
+                                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                            <path fill="#34A853"
+                                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                        </svg>
+                    </div>
+                    <div class="sec-t">Google OAuth Verified</div>
+                    <p class="sec-d">Officially verified — compliant, audited, and safe for institutional use at scale.
+                    </p>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-ico"><i class="fas fa-key"></i></div>
+                    <div class="sec-t">JWT Session Encryption</div>
+                    <p class="sec-d">Industry-standard JSON Web Token encryption keeps every session secure and
+                        tamper-proof.</p>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-ico"><i class="fas fa-users-cog"></i></div>
+                    <div class="sec-t">Role-Based Access Control</div>
+                    <p class="sec-d">Faculty and student roles carry distinct permissions. Unauthorized access is
+                        structurally impossible.</p>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-ico"><i class="fas fa-lock"></i></div>
+                    <div class="sec-t">Bcrypt Password Hashing</div>
+                    <p class="sec-d">All passwords secured with bcrypt. Plain-text credentials are never stored anywhere
+                        in the system.</p>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-ico"><i class="fas fa-bell"></i></div>
+                    <div class="sec-t">Login Notifications</div>
+                    <p class="sec-d">Every login across all providers triggers an automatic security alert email to the
+                        user.</p>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-ico"><i class="fas fa-code"></i></div>
+                    <div class="sec-t">Secure API Architecture</div>
+                    <p class="sec-d">All endpoints secured, rate-limited, and designed for safe, scalable institutional
+                        deployment.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ ROADMAP ══════ -->
+    <section class="sec">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-rocket"></i> Future</div>
+                <h2 class="sec-title">Roadmap</h2>
+                <p class="sec-desc">Classgrid is evolving into industry-grade academic AI infrastructure with adaptive
+                    intelligence at every layer.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="road-grid stag">
+                <div class="road-card">
+                    <div class="road-ico">📊</div>
+                    <div class="road-t">AI Engagement Analytics</div>
+                    <div class="road-d">Deep behavioral analysis tracking real participation patterns across sessions.
+                    </div>
+                </div>
+                <div class="road-card">
+                    <div class="road-ico">🔮</div>
+                    <div class="road-t">Performance Prediction</div>
+                    <div class="road-d">Proactive AI insights to identify struggling students before it's too late.
+                    </div>
+                </div>
+                <div class="road-card">
+                    <div class="road-ico">🧠</div>
+                    <div class="road-t">Adaptive Learning</div>
+                    <div class="road-d">Content that adjusts in real time to individual student comprehension levels.
+                    </div>
+                </div>
+                <div class="road-card">
+                    <div class="road-ico">🔍</div>
+                    <div class="road-t">Plagiarism Detection</div>
+                    <div class="road-d">AI-powered originality verification embedded into the submission workflow.</div>
+                </div>
+                <div class="road-card">
+                    <div class="road-ico">🎤</div>
+                    <div class="road-t">Lecture Summarization</div>
+                    <div class="road-d">Automatic post-lecture summaries and highlight reels for student review.</div>
+                </div>
+                <div class="road-card">
+                    <div class="road-ico">🏢</div>
+                    <div class="road-t">Institutional SaaS</div>
+                    <div class="road-d">Multi-tenant architecture for coaching institutes and academic institutions.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ ABOUT ══════ -->
+    <section class="sec-alt" id="about">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-info-circle"></i> About</div>
+                <h2 class="sec-title">About Classgrid</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="reveal">
+                    <p class="about-lead">Most platforms treat AI as an <strong>external tool</strong>. Classgrid
+                        <strong>embeds AI directly into the academic workflow</strong> — making intelligence a core part
+                        of every interaction, not an afterthought.</p>
+                    <p class="about-body">Our mission is to create an intelligent classroom ecosystem where faculty have
+                        real-time visibility, students feel confident to engage, and AI enhances — not replaces — human
+                        teaching. Learning becomes interactive, structured, and genuinely intelligent.</p>
+                    <div class="name-box">
+                        <div class="name-row">
+                            <div class="name-word">Quantum</div>
+                            <div class="name-def">Advanced intelligence and innovation — the next generation of academic
+                                infrastructure beyond what traditional platforms can offer.</div>
+                        </div>
+                        <div class="name-row">
+                            <div class="name-word">Chem</div>
+                            <div class="name-def">Interaction, connection, and learning synergy — the chemistry between
+                                student, faculty, and AI that makes learning come alive.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pillars reveal">
+                    <div class="pillar">
+                        <div class="pillar-hd">
+                            <div class="pillar-ico">👁️</div>
+                            <div class="pillar-t">Real-Time Faculty Visibility</div>
+                        </div>
+                        <p class="pillar-d">Faculty know exactly what's happening at all times — who's active, what's
+                            being discussed, how engagement is trending.</p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-hd">
+                            <div class="pillar-ico">💬</div>
+                            <div class="pillar-t">Student Confidence to Engage</div>
+                        </div>
+                        <p class="pillar-d">Real-time chat, peer sharing, and always-available AI reduce the hesitation
+                            that stops students from participating.</p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-hd">
+                            <div class="pillar-ico">🤖</div>
+                            <div class="pillar-t">AI That Enhances Teaching</div>
+                        </div>
+                        <p class="pillar-d">AI handles routine tasks — doubts, summarizing, quizzes — so faculty can
+                            focus entirely on teaching.</p>
+                    </div>
+                    <div class="pillar">
+                        <div class="pillar-hd">
+                            <div class="pillar-ico">🏗️</div>
+                            <div class="pillar-t">Scalable Infrastructure</div>
+                        </div>
+                        <p class="pillar-d">Built to grow from individual educators to large institutions, with
+                            architecture designed for reliability and adoption.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ VISION / PRICING ══════ -->
+    <section class="sec">
+        <div class="container">
+            <div class="sec-head">
+                <div class="sec-tag"><i class="fas fa-globe"></i> Vision</div>
+                <h2 class="sec-title">Our Vision</h2>
+                <p class="sec-desc">Evolving Classgrid into a global SaaS platform for independent educators, coaching
+                    institutes, and academic institutions worldwide.</p>
+                <div class="divider"></div>
+            </div>
+            <div class="vision-grid stag">
+                <div class="v-tier free">
+                    <div class="v-name">Free Tier</div>
+                    <div class="v-tag">For educators getting started</div>
+                    <ul class="v-feats">
+                        <li><i class="fas fa-check"></i> Basic classroom management</li>
+                        <li><i class="fas fa-check"></i> Limited AI access</li>
+                        <li><i class="fas fa-check"></i> Standard classroom capacity</li>
+                        <li><i class="fas fa-check"></i> Real-time chat</li>
+                        <li><i class="fas fa-check"></i> Notes &amp; announcement uploads</li>
+                        <li><i class="fas fa-check"></i> All 4 login providers</li>
+                    </ul>
+                </div>
+                <div class="v-tier pro">
+                    <div class="v-name">Pro Tier</div>
+                    <div class="v-tag">For institutions &amp; power educators</div>
+                    <ul class="v-feats">
+                        <li><i class="fas fa-check"></i> Advanced AI analytics</li>
+                        <li><i class="fas fa-check"></i> Larger classroom capacity</li>
+                        <li><i class="fas fa-check"></i> Performance insights dashboard</li>
+                        <li><i class="fas fa-check"></i> Adaptive quiz generation</li>
+                        <li><i class="fas fa-check"></i> Institutional reporting tools</li>
+                        <li><i class="fas fa-check"></i> Priority AI uptime &amp; routing</li>
+                        <li><i class="fas fa-check"></i> Plagiarism detection</li>
+                        <li><i class="fas fa-check"></i> AI lecture summarization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ CTA ══════ -->
+    <section class="cta-sec">
+        <div class="cta-aura"></div>
+        <div class="cta-ring"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <div class="cta-eyebrow">Get Started Today</div>
+                <h2 class="cta-title">Ready to Build an Intelligent Classroom?</h2>
+                <p class="cta-desc">Join Classgrid and transform how your students learn, engage, and grow — powered
+                    by embedded AI at every step of the experience.</p>
+                <a href="index" class="cta-btn">Get Started Free <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════ FOOTER ══════ -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="f-col">
+                    <img src="/Classgrid.png" alt="Classgrid" class="f-logo">
+                    <p class="f-tag">AI-Native Intelligent Classroom Ecosystem. Structured management, real-time
+                        collaboration, and embedded AI — unified in one platform.</p>
+                </div>
+                <div class="f-col">
+                    <h4 class="f-hd">Quick Links</h4>
+                    <ul class="f-links">
+                        <li><a href="index">Home</a></li>
+                        <li><a href="features">Features</a></li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h4 class="f-hd">Resources</h4>
+                    <ul class="f-links">
+                        <li><a href="https://classgridblog.wordpress.com/" target="_blank">Blog</a></li>
+                        <li><a href="documentation">Documentation</a></li>
+                        <li><a href="help">Help Center</a></li>
+                    </ul>
+                </div>
+                <div class="f-col">
+                    <h4 class="f-hd">Contact</h4>
+                    <ul class="f-contacts">
+                        <li><a href="mailto:classgrid25@gmail.com"><i
+                                    class="fas fa-envelope"></i>classgrid25@gmail.com</a></li>
+                        <li><a href="mailto:support@classgrid.site"><i
+                                    class="fas fa-envelope"></i>support@classgrid.site</a></li>
+                        <li><a href="https://wa.me/918149277038" target="_blank" rel="noopener noreferrer"><i
+                                    class="fab fa-whatsapp"></i>+91 81492 77038</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="f-bottom">
+                <p>&copy; 2026 Classgrid. All rights reserved. Built for intelligent education.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ══════ SCRIPTS ══════ -->
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 44, density: { enable: true, value_area: 900 } },
+                color: { value: '#00d4ff' }, shape: { type: 'circle' },
+                opacity: { value: 0.22, random: false },
+                size: { value: 2, random: true },
+                line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.12, width: 1 },
+                move: { enable: true, speed: 1.0, direction: 'none', out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'window',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' }, resize: true },
+                modes: { repulse: { distance: 68, duration: 0.4 }, push: { particles_nb: 2 } }
+            },
+            retina_detect: true
+        });
+
+        (function () {
+            var ham = document.getElementById('ham');
+            var mob = document.getElementById('mob');
+            var overlay = document.getElementById('overlay');
+            var hdr = document.getElementById('hdr');
+
+            function openMenu() {
+                mob.classList.add('open'); ham.classList.add('open');
+                overlay.classList.add('open'); document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                mob.classList.remove('open'); ham.classList.remove('open');
+                overlay.classList.remove('open'); document.body.style.overflow = '';
+            }
+
+            ham.addEventListener('click', function (e) {
+                e.stopPropagation();
+                mob.classList.contains('open') ? closeMenu() : openMenu();
+            });
+            overlay.addEventListener('click', closeMenu);
+            document.querySelectorAll('.mob-link').forEach(function (l) {
+                l.addEventListener('click', closeMenu);
+            });
+
+            window.addEventListener('scroll', function () {
+                hdr.classList.toggle('scrolled', window.scrollY > 40);
+            }, { passive: true });
+
+            document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+                a.addEventListener('click', function (e) {
+                    var t = document.querySelector(this.getAttribute('href'));
+                    if (t) {
+                        e.preventDefault();
+                        window.scrollTo({
+                            top: t.getBoundingClientRect().top + window.pageYOffset - 76,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            function reveal() {
+                var th = window.innerHeight - 80;
+                document.querySelectorAll('.reveal:not(.vis)').forEach(function (el) {
+                    if (el.getBoundingClientRect().top < th) el.classList.add('vis');
+                });
+                document.querySelectorAll('.stag:not(.vis)').forEach(function (el) {
+                    if (el.getBoundingClientRect().top < th) el.classList.add('vis');
+                });
+            }
+            window.addEventListener('scroll', reveal, { passive: true });
+            window.addEventListener('load', reveal);
+            setTimeout(reveal, 160);
+        })();
+    </script>
+
+    <script>
+        document.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && ['I', 'C', 'J'].includes(e.key)) || (e.ctrlKey && e.key === 'U'))
+                e.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Policy - Classgrid | How We Use Cookies</title>
+    <meta name="description"
+        content="Learn about how Classgrid uses cookies and similar technologies to ensure platform functionality, security, and user experience.">
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <!-- Particles -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <!-- Vercel Web Analytics -->
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+            --text-primary: #f8fafc;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent-green: #10b981;
+            --accent-orange: #f59e0b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+        }
+
+        @keyframes rotateLogo {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::before,
+        .nav-links a.active::before {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            background: none;
+            border: none;
+        }
+
+        .mobile-menu-btn span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .mobile-menu-btn.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 999;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+            max-height: 500px;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        .mobile-nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-links a:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 180px 2rem 80px;
+            text-align: center;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at top, rgba(0, 212, 255, 0.12), transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid rgba(0, 212, 255, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: var(--accent-light);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.75rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Content Section */
+        .content-section {
+            padding: 2rem 0;
+        }
+
+        .content-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .content-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Cookie Types Grid */
+        .cookie-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .cookie-type-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .cookie-type-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+            border-color: var(--accent);
+        }
+
+        .cookie-type-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cookie-type-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .cookie-type-icon.essential {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent-light);
+        }
+
+        .cookie-type-icon.functional {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .cookie-type-icon.analytics {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+
+        .cookie-type-icon.marketing {
+            background: rgba(178, 75, 243, 0.2);
+            color: var(--purple);
+        }
+
+        .cookie-type-card h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .cookie-type-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .cookie-type-card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .cookie-type-card ul li {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .cookie-type-card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent-light);
+            font-weight: bold;
+        }
+
+        /* Cookie Table */
+        .cookie-table-wrapper {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+            overflow-x: auto;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .cookie-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .cookie-table thead {
+            background: rgba(10, 14, 39, 0.6);
+        }
+
+        .cookie-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--glass-border);
+            white-space: nowrap;
+        }
+
+        .cookie-table td {
+            padding: 1rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .cookie-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cookie-table tbody tr:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .cookie-type-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .cookie-type-badge.essential {
+            background: rgba(0, 212, 255, 0.2);
+            color: var(--accent-light);
+        }
+
+        .cookie-type-badge.functional {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        .cookie-type-badge.analytics {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-orange);
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--glass-bg);
+            border-left: 3px solid var(--accent-light);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .info-box.warning {
+            border-left-color: var(--accent-orange);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .info-box.success {
+            border-left-color: var(--accent-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .info-box h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Browser Controls */
+        .browser-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .browser-control {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .browser-control:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .browser-control i {
+            font-size: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .browser-control div h5 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .browser-control div p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .contact-section h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            margin-top: 0;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-method {
+            background: rgba(10, 14, 39, 0.6);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 2rem;
+            min-width: 280px;
+            text-align: left;
+            transition: all 0.3s;
+        }
+
+        .contact-method:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .contact-method h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-method h4 i {
+            color: var(--accent-light);
+        }
+
+        .contact-method a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .contact-method a:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(10, 14, 39, 0.95);
+            border-top: 2px solid var(--glass-border);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--accent-light);
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 2px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .footer-social a {
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            color: var(--accent-light);
+            transform: translateY(-3px);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid rgba(16, 185, 129, 0.4);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.875rem;
+            color: var(--accent-green);
+            margin-top: 2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+
+            .logo span {
+                font-size: 1.3rem;
+            }
+
+            .logo img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h3 {
+                font-size: 1.25rem;
+            }
+
+            .cookie-types,
+            .browser-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cookie-table-wrapper {
+                padding: 1rem;
+            }
+
+            .cookie-table {
+                font-size: 0.8rem;
+            }
+
+            .cookie-table th,
+            .cookie-table td {
+                padding: 0.75rem 0.5rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index" class="logo">
+                <img src="/Classgrid.png" alt="Classgrid Logo">
+                <span>Classgrid</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#cookies">Cookie Types</a></li>
+                <li><a href="#details">Cookie Details</a></li>
+                <li><a href="#control">Control Cookies</a></li>
+                <li><a href="#contact" class="active">Contact</a></li>
+            </ul>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul class="mobile-nav-links">
+            <li><a href="#cookies">🍪 Cookie Types</a></li>
+            <li><a href="#details">📋 Cookie Details</a></li>
+            <li><a href="#control">⚙️ Control Cookies</a></li>
+            <li><a href="#contact">📞 Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <div class="hero-badge">
+                <i class="fas fa-cookie-bite"></i>
+                <span>Cookie Policy</span>
+            </div>
+            <h1>How we use cookies and similar technologies</h1>
+            <p>Transparency about the cookies we use to ensure platform functionality, security, and improve your
+                experience on Classgrid.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- What Are Cookies -->
+        <section class="content-section reveal">
+            <h2>What Are Cookies?</h2>
+            <p>Cookies are small text files stored on your device when you visit a website. They help websites function
+                properly, remember user preferences, and improve overall user experience.</p>
+            <p>At Classgrid, cookies help us ensure platform reliability, security, and usability.</p>
+        </section>
+
+        <!-- Types of Cookies -->
+        <section class="content-section" id="cookies">
+            <h2 class="reveal">Types of Cookies We Use</h2>
+
+            <div class="cookie-types">
+                <div class="cookie-type-card reveal">
+                    <div class="cookie-type-header">
+                        <div class="cookie-type-icon essential">
+                            <i class="fas fa-shield-halved"></i>
+                        </div>
+                        <h4>1. Essential Cookies</h4>
+                    </div>
+                    <p>These cookies are required for core platform functionality and security. Without them, the
+                        website cannot operate properly.</p>
+                    <ul>
+                        <li>Session handling</li>
+                        <li>Security protection</li>
+                        <li>Authentication support</li>
+                        <li>Cookie preference storage</li>
+                    </ul>
+                </div>
+
+                <div class="cookie-type-card reveal">
+                    <div class="cookie-type-header">
+                        <div class="cookie-type-icon functional">
+                            <i class="fas fa-sliders"></i>
+                        </div>
+                        <h4>2. Functional Cookies</h4>
+                    </div>
+                    <p>These cookies remember user preferences and improve usability.</p>
+                    <ul>
+                        <li>Interface preferences</li>
+                        <li>Saved settings</li>
+                        <li>Recently accessed features</li>
+                    </ul>
+                </div>
+
+                <div class="cookie-type-card reveal">
+                    <div class="cookie-type-header">
+                        <div class="cookie-type-icon analytics">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h4>3. Analytics Cookies</h4>
+                    </div>
+                    <p>These cookies help us understand how visitors use our platform. Data is collected in an
+                        aggregated and anonymized manner.</p>
+                    <ul>
+                        <li>Page usage trends</li>
+                        <li>Feature interaction analysis</li>
+                        <li>Error monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="cookie-type-card reveal">
+                    <div class="cookie-type-header">
+                        <div class="cookie-type-icon marketing">
+                            <i class="fas fa-bullhorn"></i>
+                        </div>
+                        <h4>4. Marketing Cookies</h4>
+                    </div>
+                    <p>Classgrid does not currently use marketing or advertising cookies. If this changes in the
+                        future, this policy will be updated accordingly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cookie Details Table -->
+        <section class="content-section" id="details">
+            <h2 class="reveal">Cookie Details</h2>
+            <p class="reveal">Below is a representative list of cookies that may be used on our platform:</p>
+
+            <div class="cookie-table-wrapper reveal">
+                <table class="cookie-table">
+                    <thead>
+                        <tr>
+                            <th>Cookie Name</th>
+                            <th>Type</th>
+                            <th>Purpose</th>
+                            <th>Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>session_id</code></td>
+                            <td><span class="cookie-type-badge essential">Essential</span></td>
+                            <td>Maintains secure user sessions</td>
+                            <td>Session</td>
+                        </tr>
+                        <tr>
+                            <td><code>cookie_consent</code></td>
+                            <td><span class="cookie-type-badge essential">Essential</span></td>
+                            <td>Stores cookie preferences</td>
+                            <td>1 year</td>
+                        </tr>
+                        <tr>
+                            <td><code>user_preferences</code></td>
+                            <td><span class="cookie-type-badge functional">Functional</span></td>
+                            <td>Saves display and UI settings</td>
+                            <td>1 year</td>
+                        </tr>
+                        <tr>
+                            <td><code>_ga</code></td>
+                            <td><span class="cookie-type-badge analytics">Analytics</span></td>
+                            <td>Analytics user distinction</td>
+                            <td>2 years</td>
+                        </tr>
+                        <tr>
+                            <td><code>_gid</code></td>
+                            <td><span class="cookie-type-badge analytics">Analytics</span></td>
+                            <td>Analytics session tracking</td>
+                            <td>24 hours</td>
+                        </tr>
+                        <tr>
+                            <td><code>_gat</code></td>
+                            <td><span class="cookie-type-badge analytics">Analytics</span></td>
+                            <td>Request rate limiting</td>
+                            <td>1 minute</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="info-box warning reveal">
+                <h4><i class="fas fa-info-circle"></i> Note</h4>
+                <p>Actual cookies may vary depending on features in use and third-party services enabled.</p>
+            </div>
+        </section>
+
+        <!-- Third-Party Cookies -->
+        <section class="content-section">
+            <h3 class="reveal">Third-Party Cookies</h3>
+            <p class="reveal">Classgrid may use trusted third-party services that set cookies on our behalf, such as:
+            </p>
+
+            <div class="info-box reveal">
+                <ul style="list-style: none; margin: 0;">
+                    <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-light);">•</span>
+                        <strong>Analytics providers</strong> – to understand platform usage
+                    </li>
+                    <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-light);">•</span>
+                        <strong>Infrastructure & security services</strong> – for performance and protection
+                    </li>
+                    <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-light);">•</span>
+                        <strong>Authentication providers</strong> (Google, GitHub, LinkedIn) – when used by the user.
+                        Note: Google OAuth is officially verified for compliance and security.
+                    </li>
+                </ul>
+            </div>
+
+            <p class="reveal">These third parties operate under their own privacy and cookie policies.</p>
+        </section>
+
+        <!-- Cookie Preferences -->
+        <section class="content-section">
+            <h3 class="reveal">Cookie Preferences</h3>
+            <p class="reveal">You can manage your cookie preferences at any time:</p>
+
+            <div class="info-box success reveal">
+                <ul style="list-style: none; margin: 0;">
+                    <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-green);">✓</span>
+                        <strong>Essential cookies</strong> cannot be disabled
+                    </li>
+                    <li style="padding: 0.5rem 0; padding-left: 1.5rem; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--accent-green);">✓</span>
+                        <strong>Functional and analytics cookies</strong> can be controlled through browser settings
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- How to Control Cookies -->
+        <section class="content-section" id="control">
+            <h3 class="reveal">How to Control Cookies</h3>
+            <p class="reveal">You can control or delete cookies using your browser settings:</p>
+
+            <div class="browser-controls reveal">
+                <div class="browser-control">
+                    <i class="fab fa-chrome"></i>
+                    <div>
+                        <h5>Chrome</h5>
+                        <p>Settings → Privacy & Security → Cookies</p>
+                    </div>
+                </div>
+
+                <div class="browser-control">
+                    <i class="fab fa-firefox"></i>
+                    <div>
+                        <h5>Firefox</h5>
+                        <p>Settings → Privacy & Security → Cookies and Site Data</p>
+                    </div>
+                </div>
+
+                <div class="browser-control">
+                    <i class="fab fa-safari"></i>
+                    <div>
+                        <h5>Safari</h5>
+                        <p>Preferences → Privacy → Cookies</p>
+                    </div>
+                </div>
+
+                <div class="browser-control">
+                    <i class="fab fa-edge"></i>
+                    <div>
+                        <h5>Edge</h5>
+                        <p>Settings → Cookies and site permissions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box warning reveal">
+                <h4><i class="fas fa-exclamation-triangle"></i> Important</h4>
+                <p>Disabling cookies may affect certain platform features and functionality.</p>
+            </div>
+        </section>
+
+        <!-- Do Not Track -->
+        <section class="content-section">
+            <h3 class="reveal">Do Not Track (DNT)</h3>
+            <p class="reveal">Classgrid does not currently respond to browser "Do Not Track" signals. You can still
+                control tracking via your browser settings.</p>
+        </section>
+
+        <!-- Updates -->
+        <section class="content-section">
+            <h3 class="reveal">Updates to This Policy</h3>
+            <p class="reveal">We may update this Cookie Policy to reflect changes in technology, legal requirements, or
+                platform functionality. Updates will be posted on this page.</p>
+
+            <div class="status-badge reveal">
+                <i class="far fa-calendar-check"></i>
+                <span>Last Updated: january 31, 2026</span>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="content-section" id="contact">
+            <div class="contact-section reveal">
+                <h3>Contact Us</h3>
+                <p>If you have questions about this Cookie Policy or our data practices:</p>
+
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <h4><i class="fas fa-envelope"></i> Email</h4>
+                        <a href="mailto:classgrid25@gmail.com,support@classgrid.site">classgrid25@gmail.com or support@classgrid.site</a>
+                    </div>
+
+                    <div class="contact-method">
+                        <h4><i class="fab fa-whatsapp"></i> WhatsApp</h4>
+                        <a href="https://wa.me/918149277038">+91 81492 77038</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <img src="/Classgrid.png" alt="Classgrid Logo">
+                        <span>Classgrid</span>
+                    </div>
+                    <p>Security-first computational platform. Protecting your research data with
+                        enterprise-grade security practices.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="index" target="_blank" rel="noopener noreferrer">Home</a></li>
+                        <li><a href="acknowledgement" target="_blank" rel="noopener noreferrer">Acknowledgement</a></li>
+                        
+                        <li><a href="documentation" target="_blank" rel="noopener noreferrer">Documentation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="privacy &policy" target="_blank">Privacy Policy</a></li>
+                        <li><a href="terms" target="_blank">Terms of Service</a></li>
+                        <li><a href="sources" target="_blank" rel="noopener noreferrer">Sources</a></li>
+                        <li><a href="disclaimer" target="_blank">Disclaimer</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="team" target="_blank" rel="noopener noreferrer">Team</a></li>
+                        <li><a href="contact" target="_blank" rel="noopener noreferrer">Contact</a></li>
+                        <li><a href="#">Status Page</a></li>
+                        <li><a href="#">Report Issue</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 Classgrid. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Particles.js Configuration
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#00d4ff',
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    out_mode: 'out',
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        // GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Scroll Reveal Animation
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            reveals.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Initial check on page load
+        revealOnScroll();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                this.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+
+            // Close menu when clicking on a link
+            document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuBtn.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.pageYOffset > 100) {
+                navbar.style.padding = '0.5rem 0';
+                navbar.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.padding = '1rem 0';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <script>
+        // ❌ Disable right click
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+
+        // ❌ Disable view source & inspect
+        document.addEventListener("keydown", function (e) {
+            if (
+                e.key === "F12" ||
+                (e.ctrlKey && e.shiftKey && ["I", "C", "J"].includes(e.key)) ||
+                (e.ctrlKey && e.key === "U")
+            ) {
+                e.preventDefault();
+            }
+        });
+    </script>
+
+</body>
+
+</html>

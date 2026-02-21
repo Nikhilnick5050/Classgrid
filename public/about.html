@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>About Us | Classgrid</title>
+    <meta name="description" content="Learn about Classgrid - Advanced Chemistry Learning & Research Platform">
+    <script>
+        window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+    </script>
+    <script defer src="/_vercel/insights/script.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0a0e27;
+            --secondary: #1a1f3a;
+            --accent: #00d4ff;
+            --accent-light: #4de8ff;
+            --purple: #b24bf3;
+            --glass-bg: rgba(26, 31, 58, 0.7);
+            --glass-border: rgba(0, 212, 255, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary);
+            color: #ffffff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .bg-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 212, 255, 0.3);
+            top: 10%;
+            left: 10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(178, 75, 243, 0.3);
+            top: 50%;
+            right: 10%;
+            animation-delay: 5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(50px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) scale(0.9);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 998;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            min-width: 0;
+            flex-shrink: 1;
+        }
+
+        .nav-logo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.6);
+            animation: rotateLogo 20s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes rotateLogo {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .logo-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
+        }
+
+        .logo-subtitle {
+            font-size: 0.75rem;
+            color: var(--accent-light);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .nav-link:hover {
+            color: var(--accent);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .mobile-menu-toggle span {
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .mobile-menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .mobile-menu-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 90px;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--glass-border);
+            z-index: 997;
+            padding: 2rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .mobile-nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            padding: 1rem;
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav-link:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            border-color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .page-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 150px 0 80px;
+        }
+
+        .hero-content h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #00d4ff 0%, #b24bf3 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero-content p {
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            color: var(--accent-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .content-section {
+            padding: 50px 0 100px;
+        }
+
+        .intro-card {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.15) 0%, rgba(178, 75, 243, 0.15) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 25px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 212, 255, 0.3);
+            text-align: center;
+        }
+
+        .intro-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-card p {
+            font-size: 1.2rem;
+            color: #cbd5e1;
+            line-height: 1.8;
+            max-width: 900px;
+            margin: 0 auto 1rem;
+        }
+
+        .about-card {
+            background: var(--glass-bg);
+            border: 2px solid var(--glass-border);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(0, 212, 255, 0.3);
+        }
+
+        .about-card h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .about-card h2 i {
+            font-size: 1.5rem;
+        }
+
+        .about-card p {
+            color: #cbd5e1;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .about-card ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-card li {
+            color: #cbd5e1;
+            margin-bottom: 0.5rem;
+            line-height: 1.7;
+        }
+
+        .about-card strong {
+            color: var(--accent-light);
+        }
+
+        .highlight-box {
+            background: rgba(0, 212, 255, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box ul {
+            margin-left: 1.5rem;
+        }
+
+        .highlight-box li {
+            color: #cbd5e1;
+            margin-bottom: 0.4rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #00d4ff10 0%, #b24bf320 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .contact-info p {
+            margin: 0.75rem 0;
+            color: #cbd5e1;
+        }
+
+        .contact-info a {
+            color: var(--accent-light);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent);
+        }
+
+        .main-footer {
+            background: rgba(10, 14, 39, 0.95);
+            padding: 40px 0 20px;
+            border-top: 2px solid var(--glass-border);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            color: #a0aec0;
+            padding-top: 20px;
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .nav-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.3rem;
+                letter-spacing: 1.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .nav-brand {
+                gap: 0.75rem;
+            }
+
+            .nav-logo {
+                width: 45px;
+                height: 45px;
+            }
+
+            .logo-text h1 {
+                font-size: 1.1rem;
+                letter-spacing: 1px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.65rem;
+            }
+
+            .about-card {
+                padding: 1.5rem;
+            }
+
+            .intro-card {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.75rem;
+            }
+
+            .nav-logo {
+                width: 40px;
+                height: 40px;
+            }
+
+            .logo-text h1 {
+                font-size: 1rem;
+                letter-spacing: 0.5px;
+            }
+
+            .logo-subtitle {
+                font-size: 0.6rem;
+                letter-spacing: 0.5px;
+            }
+
+            .mobile-menu-toggle {
+                padding: 0.25rem;
+                margin-left: 0.5rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .logo-text h1 {
+                font-size: 0.9rem;
+            }
+
+            .logo-subtitle {
+                font-size: 0.55rem;
+            }
+
+            .nav-logo {
+                width: 36px;
+                height: 36px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="particles-js"></div>
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <header class="main-header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="index" class="nav-brand">
+                    <img src="/Classgrid.png" alt="Classgrid Logo" class="nav-logo">
+                    <div class="logo-text">
+                        <h1>CLASSGRID</h1>
+                        <p class="logo-subtitle">Platform</p>
+                    </div>
+                </a>
+                <div class="nav-menu">
+                    <a href="index" class="nav-link">Home</a>
+                    <a href="team" class="nav-link">Team</a>
+                    <a href="contact" class="nav-link">Contact</a>
+                </div>
+                <div class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <span></span><span></span><span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-nav-links">
+            <a href="index" class="mobile-nav-link">🏠 Home</a>
+            <a href="team" class="mobile-nav-link">👥 Team</a>
+            <a href="contact" class="mobile-nav-link">📞 Contact</a>
+        </div>
+    </div>
+
+    <section class="page-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>ABOUT<br>PAGE</h1>
+                <p><strong>Classgrid Classroom 2.0</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="container">
+
+            <!-- What Is Classgrid -->
+            <div class="intro-card">
+                <h2> What Is Classgrid?</h2>
+                <p>Classgrid is an AI-powered intelligent classroom ecosystem that combines structured academic
+                    management, real-time collaboration, and embedded artificial intelligence into one unified learning
+                    platform.</p>
+                <p>It is not just a learning website. It is a smart academic infrastructure designed for modern
+                    education.</p>
+            </div>
+
+            <!-- Our Vision -->
+            <div class="about-card">
+                <h2><i class="fas fa-eye"></i> Our Vision</h2>
+                <p>Our vision is to build a unified digital academic environment where:</p>
+                <ul>
+                    <li>Faculty manage classrooms with intelligent control</li>
+                    <li>Students receive instant AI-assisted support</li>
+                    <li>Learning becomes structured, interactive, and adaptive</li>
+                    <li>Artificial intelligence works inside the academic workflow</li>
+                </ul>
+                <p>We aim to transform traditional online classrooms into AI-native learning ecosystems.</p>
+            </div>
+
+            <!-- Classgrid Classroom -->
+            <div class="about-card">
+                <h2><i class="fas fa-school"></i> Classgrid Classroom</h2>
+                <p>Classgrid Classroom provides:</p>
+                <ul>
+                    <li>Role-based access (Faculty &amp; Students)</li>
+                    <li>Secure authentication (Manual + Google OAuth + GitHub + LinkedIn)</li>
+                    <li>Real-time classroom interaction</li>
+                    <li>Approval-based or code-based class joining</li>
+                    <li>Live chat inside each classroom</li>
+                    <li>Structured notes, announcements, and quizzes</li>
+                    <li>Student note-sharing system</li>
+                    <li>AI-powered doubt resolution</li>
+                    <li>Intelligent classroom monitoring</li>
+                </ul>
+                <p>Unlike traditional LMS platforms, AI is embedded directly into the system architecture.</p>
+            </div>
+
+            <!-- AI-Powered Learning Intelligence -->
+            <div class="about-card">
+                <h2><i class="fas fa-brain"></i> AI-Powered Learning Intelligence</h2>
+                <p>Classgrid integrates a multi-model AI system:</p>
+                <ul>
+                    <li>Primary AI Model: Groq (LLaMA)</li>
+                    <li>Fallback Model: Gemini Flash</li>
+                    <li>Automatic AI routing for reliability</li>
+                    <li>Real-time doubt solving</li>
+                    <li>Quiz generation from notes</li>
+                    <li>Learning material summarization</li>
+                    <li>Academic assistance within the classroom</li>
+                </ul>
+                <p>AI operates as a classroom copilot — not as a separate chatbot.</p>
+            </div>
+
+            <!-- Real-Time Infrastructure -->
+            <div class="about-card">
+                <h2><i class="fas fa-server"></i> Real-Time Infrastructure</h2>
+                <p>Classgrid is built with a scalable architecture:</p>
+                <ul>
+                    <li>Node.js + Express backend</li>
+                    <li>MongoDB for persistent data storage</li>
+                    <li>Supabase for real-time updates</li>
+                    <li>Secure authentication systems</li>
+                    <li>Fault-tolerant AI fallback routing</li>
+                </ul>
+                <p>This ensures reliability, scalability, and performance.</p>
+            </div>
+
+            <!-- Secure & Responsible Platform -->
+            <div class="about-card">
+                <h2><i class="fas fa-lock"></i> Secure &amp; Responsible Platform</h2>
+                <p>Classgrid provides secure access through:</p>
+                <ul>
+                    <li>Email verification-based account creation</li>
+                    <li>Self-set password after verification</li>
+                    <li>Google, GitHub, and LinkedIn OAuth login</li>
+                    <li>Privacy-focused data handling</li>
+                    <li>Secure authentication standards</li>
+                </ul>
+                <p>User data is handled responsibly using modern security practices.</p>
+            </div>
+
+            <!-- Who Can Use Classgrid -->
+            <div class="about-card">
+                <h2><i class="fas fa-users"></i> Who Can Use Classgrid?</h2>
+                <p>Classgrid is designed for:</p>
+                <ul>
+                    <li>Engineering Students</li>
+                    <li>Independent Educators</li>
+                    <li>Coaching Institutes</li>
+                    <li>Academic Mentors</li>
+                    <li>Self-learners</li>
+                    <li>Research-Oriented Learners</li>
+                </ul>
+                <p>No advanced technical knowledge is required to begin.</p>
+            </div>
+
+            <!-- Learning Beyond the Traditional Classroom -->
+            <div class="about-card">
+                <h2><i class="fas fa-laptop-code"></i> Learning Beyond the Traditional Classroom</h2>
+                <p>Classgrid supports flexible and intelligent learning through:</p>
+                <ul>
+                    <li>Structured tutorials</li>
+                    <li>Lecture content</li>
+                    <li>AI-assisted explanations</li>
+                    <li>Real-time collaboration</li>
+                    <li>Adaptive learning capabilities</li>
+                    <li>Future-ready academic analytics</li>
+                </ul>
+                <p>Education should be intelligent, interactive, and accessible from anywhere.</p>
+            </div>
+
+            <!-- Our Commitment -->
+            <div class="about-card">
+                <h2><i class="fas fa-heart"></i> Our Commitment</h2>
+                <p>We are committed to:</p>
+                <ul>
+                    <li>Accuracy and clarity in academic content</li>
+                    <li>Responsible AI integration</li>
+                    <li>Secure and scalable architecture</li>
+                    <li>Continuous improvement</li>
+                    <li>Building industry-grade educational infrastructure</li>
+                </ul>
+                <p>Classgrid evolves continuously based on user feedback and technological advancements.</p>
+            </div>
+
+            <!-- Legal & Educational Disclaimer -->
+            <div class="about-card">
+                <h2><i class="fas fa-exclamation-circle"></i> Legal &amp; Educational Disclaimer</h2>
+                <p>Classgrid is an educational technology platform.</p>
+                <p>We do not provide:</p>
+                <div class="highlight-box">
+                    <ul>
+                        <li>Professional academic certification</li>
+                        <li>Industrial or medical advice</li>
+                        <li>Supervised laboratory execution</li>
+                    </ul>
+                </div>
+                <p>Users are responsible for verifying AI-generated outputs before academic or professional application.
+                </p>
+            </div>
+
+            <!-- Contact & Support -->
+            <div class="about-card"
+                style="background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 243, 0.1) 100%); border-color: var(--accent);">
+                <h2><i class="fas fa-envelope"></i> Contact &amp; Support</h2>
+                <p>For questions, feedback, or collaboration:</p>
+                <div class="contact-info">
+                    <h3>Get in Touch</h3>
+                    <p>📧 Email: <a href="mailto:classgrid25@gmail.com,support@classgrid.site">classgrid25@gmail.com or support@classgrid.site</a></p>
+                    <p>📞 Phone: <a href="tel:+918149277038">+91 81492 77038</a></p>
+                    <p>📍 Pune, Maharashtra, India</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Classgrid Classroom. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#00d4ff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#00d4ff', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', out_mode: 'out', bounce: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from('.hero-content h1', { duration: 1.2, y: 100, opacity: 0, ease: 'power4.out', delay: 0.2 });
+        gsap.from('.hero-content p', { duration: 1, y: 50, opacity: 0, ease: 'power3.out', delay: 0.5, stagger: 0.2 });
+        gsap.from('.intro-card', { scrollTrigger: { trigger: '.intro-card', start: 'top 85%' }, duration: 1, y: 80, opacity: 0, ease: 'power3.out' });
+
+        gsap.utils.toArray('.about-card').forEach((elem, i) => {
+            gsap.from(elem, {
+                scrollTrigger: { trigger: elem, start: 'top 85%' },
+                duration: 0.8, y: 50, opacity: 0, ease: 'power3.out', delay: i * 0.05
+            });
+        });
+
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                mobileMenuToggle.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+            });
+            document.querySelectorAll('.mobile-nav-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            document.addEventListener('click', (e) => {
+                if (!mobileMenuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                    mobileMenuToggle.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.main-header');
+            if (window.pageYOffset > 100) {
+                header.style.padding = '0.5rem 0';
+                header.style.boxShadow = '0 10px 40px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.padding = '1rem 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["I", "C", "J"].includes(e.key)) || (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>
