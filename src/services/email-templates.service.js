@@ -1,5 +1,5 @@
 /**
- * QuantumChem - Centralized Email Template Service
+ * Classgrid - Centralized Email Template Service
  * 
  * All emails share a common branded template with the platform logo.
  * Provides templates for:
@@ -11,12 +11,12 @@
 
 const getFrontendUrl = () => {
   if (process.env.VERCEL) {
-    return process.env.FRONTEND_URL_PROD || "https://www.quantumchem.site";
+    return process.env.FRONTEND_URL_PROD || "https://www.classgrid.in";
   }
   return process.env.FRONTEND_URL || "http://localhost:3000";
 };
 
-const PLATFORM_LOGO_URL = `${getFrontendUrl()}/Quantumchem.png`;
+const PLATFORM_LOGO_URL = `${getFrontendUrl()}/Classgrid.png`;
 
 // ───────────── Provider Display Helpers ─────────────
 
@@ -98,7 +98,7 @@ const baseTemplate = (content, headerGradient = "linear-gradient(135deg, #2563eb
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>QuantumChem</title>
+  <title>Classgrid</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -209,19 +209,19 @@ const baseTemplate = (content, headerGradient = "linear-gradient(135deg, #2563eb
           ${content}
           <div class="footer">
             <p class="footer-text" style="font-weight: 600; color: #111827; margin-bottom: 10px; font-size: 14px;">
-              QuantumChem Research Platform
+              Classgrid Research Platform
             </p>
-            <p class="footer-text">© ${new Date().getFullYear()} QuantumChem. All rights reserved.</p>
+            <p class="footer-text">© ${new Date().getFullYear()} Classgrid. All rights reserved.</p>
             <div style="margin: 14px 0;">
               <a href="${FRONTEND_URL}" class="footer-link">Home</a>
               <span style="color: #d1d5db;">•</span>
               <a href="${FRONTEND_URL}/classroom" class="footer-link">Dashboard</a>
               <span style="color: #d1d5db;">•</span>
-              <a href="mailto:quantumchem25@gmail.com,support@quantumchem.site" class="footer-link">Support</a>
+              <a href="mailto:support@classgrid.in" class="footer-link">Support</a>
             </div>
             <p class="footer-text" style="margin-top: 18px;">
               Need help? Contact us at
-              <a href="mailto:quantumchem25@gmail.com,support@quantumchem.site" style="color: #2563eb; text-decoration: none; font-weight: 500;">quantumchem25@gmail.com or support@quantumchem.site</a>
+              <a href="mailto:support@classgrid.in" style="color: #2563eb; text-decoration: none; font-weight: 500;">support@classgrid.in</a>
             </p>
           </div>
         </div>
@@ -238,8 +238,8 @@ const emailHeader = (tagline, provider = "manual") => {
   const config = providerConfig[provider] || providerConfig.manual;
   return `
     <div class="email-header" style="background: ${config.headerGradient};">
-      <img src="${PLATFORM_LOGO_URL}" alt="QuantumChem" class="platform-logo">
-      <h1 class="brand-name">QuantumChem</h1>
+      <img src="${PLATFORM_LOGO_URL}" alt="Classgrid" class="platform-logo">
+      <h1 class="brand-name">Classgrid</h1>
       <p class="brand-tagline">${tagline}</p>
     </div>
   `;
@@ -278,7 +278,7 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
     <div class="email-body">
       <div class="success-box">
         <p style="margin: 0; font-weight: 700; color: #065f46; font-size: 20px; line-height: 1.3;">
-          🎉 Welcome to QuantumChem!
+          🎉 Welcome to Classgrid!
         </p>
         <p style="margin: 10px 0 0 0; color: #065f46; font-size: 16px; line-height: 1.5;">
           Hello <strong>${user.name}</strong>, your account has been created successfully!
@@ -287,7 +287,7 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
 
       <div style="margin-bottom: 28px;">
         <h2>Your Research Journey Starts Here</h2>
-        <p>You've successfully signed in to QuantumChem using <strong>${authMethodDisplay}</strong>. We're thrilled to have you join our research community!</p>
+        <p>You've successfully signed in to Classgrid using <strong>${authMethodDisplay}</strong>. We're thrilled to have you join our research community!</p>
       </div>
 
       <div class="divider"></div>
@@ -343,7 +343,7 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
         </p>
         <p style="margin: 10px 0 0 0; color: #92400e; font-size: 14px; line-height: 1.7;">
           If you didn't create this account, please contact our support team immediately at
-          <a href="mailto:quantumchem25@gmail.com,support@quantumchem.site" style="color: #92400e; font-weight: 600; text-decoration: underline;">quantumchem25@gmail.com or support@quantumchem.site</a>
+          <a href="mailto:support@classgrid.in" style="color: #92400e; font-weight: 600; text-decoration: underline;">support@classgrid.in</a>
         </p>
       </div>
 
@@ -380,13 +380,13 @@ export const getLoginNotificationHtml = (user, provider = "manual") => {
           ✓ Successful Login
         </p>
         <p style="margin: 10px 0 0 0; color: #065f46; font-size: 15px; line-height: 1.5;">
-          Hello <strong>${user.name}</strong>, you recently signed in to your QuantumChem account.
+          Hello <strong>${user.name}</strong>, you recently signed in to your Classgrid account.
         </p>
       </div>
 
       <div style="margin-bottom: 24px;">
         <h2>Account Access Notification</h2>
-        <p>We detected a successful login to your QuantumChem account using <strong>${authDisplay}</strong>.</p>
+        <p>We detected a successful login to your Classgrid account using <strong>${authDisplay}</strong>.</p>
       </div>
 
       <div class="highlight-box">
@@ -424,13 +424,13 @@ export const getLoginNotificationHtml = (user, provider = "manual") => {
           ${securityAction}
           <strong>2.</strong> Review your recent account activity<br>
           <strong>3.</strong> Contact our support team: 
-          <a href="mailto:quantumchem25@gmail.com,support@quantumchem.site" style="color: #92400e; font-weight: 600; text-decoration: underline;">quantumchem25@gmail.com or support@quantumchem.site</a>
+          <a href="mailto:support@classgrid.in" style="color: #92400e; font-weight: 600; text-decoration: underline;">support@classgrid.in</a>
         </div>
       </div>
 
       <p style="text-align: center; color: #6b7280; font-size: 13px; line-height: 1.7; margin: 0;">
         You received this notification because you logged in to your account.<br>
-        This is auto-generated by QuantumChem security system.
+        This is auto-generated by Classgrid security system.
       </p>
     </div>
   `;
@@ -522,7 +522,7 @@ export const getPasswordResetEmailHtml = (resetLink) => {
 
 export const getWelcomePlainText = (user, provider = "manual") => {
   const config = providerConfig[provider] || providerConfig.manual;
-  return `Welcome to QuantumChem!
+  return `Welcome to Classgrid!
 
 Hello ${user.name},
 
@@ -544,19 +544,19 @@ PLATFORM FEATURES:
 ✓ AI-powered chemistry assistant
 
 SECURITY NOTICE:
-If you didn't create this account, contact us at quantumchem25@gmail.com or support@quantumchem.site
+If you didn't create this account, contact us at support@classgrid.in
 
 Welcome aboard!
-QuantumChem Team`;
+Classgrid Team`;
 };
 
 export const getLoginNotificationPlainText = (user, provider = "manual") => {
   const config = providerConfig[provider] || providerConfig.manual;
-  return `QuantumChem - Account Login Notification
+  return `Classgrid - Account Login Notification
 
 Hello ${user.name},
 
-A successful login was detected on your QuantumChem account.
+A successful login was detected on your Classgrid account.
 
 LOGIN INFORMATION
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -568,9 +568,9 @@ DIDN'T SIGN IN?
 If you didn't perform this login, please take immediate action:
 1. ${config.securityLink ? `Secure your account at ${config.securityLink}` : `Reset your password at ${getFrontendUrl()}/reset-password`}
 2. Review your recent account activity
-3. Contact support at quantumchem25@gmail.com or support@quantumchem.site
+3. Contact support at support@classgrid.in
 
 Access your dashboard: ${getFrontendUrl()}/classroom
 
-QuantumChem Team`;
+Classgrid Team`;
 };

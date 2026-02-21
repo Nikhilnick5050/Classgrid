@@ -23,7 +23,7 @@ router.get(
     passport.authenticate("google", { scope: ["profile", "email"] })
 );
 router.get(
-    "/google/callback",
+    "/callback/google",
     (req, res, next) => {
         passport.authenticate("google", { session: false }, (err, user) => {
             if (err) {

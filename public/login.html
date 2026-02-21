@@ -1382,7 +1382,7 @@
     function getApiBase() {
       const o = window.location.origin;
       if (o === 'http://localhost:3000') return 'http://localhost:3000/api';
-      if (o === 'https://www.classgrid.site' || o === 'https://classgrid.vercel.app') return 'https://classgrid.vercel.app/api';
+      if (o === 'https://www.classgrid.site' || o === 'https://classgridplatform.vercel.app') return 'https://classgridplatform.vercel.app/api';
       return o + '/api';
     }
     const API = getApiBase();

@@ -8,7 +8,7 @@ import User from "../models/User.js";
 
 const getBackendUrl = () => {
     if (process.env.NODE_ENV === "production") {
-        return process.env.FRONTEND_URL_PROD || "https://quantumchem.site";
+        return process.env.FRONTEND_URL_PROD || "https://classgrid.in";
     }
     if (process.env.VERCEL_URL) {
         return `https://${process.env.VERCEL_URL}`;
@@ -59,7 +59,7 @@ const passportConfig = () => {
                 {
                     clientID: process.env.GOOGLE_CLIENT_ID,
                     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-                    callbackURL: process.env.GOOGLE_CALLBACK_URL || `${BACKEND_URL}/api/auth/google/callback`,
+                    callbackURL: process.env.GOOGLE_CALLBACK_URL || `${BACKEND_URL}/api/auth/callback/google`,
                 },
                 async (accessToken, refreshToken, profile, done) => {
                     try {
@@ -132,7 +132,7 @@ const passportConfig = () => {
                             // sanitize name: "John Doe" -> "john_doe"
                             const sanitizedName = (profile.displayName || "user").toLowerCase().replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
                             const randomSuffix = Math.floor(1000 + Math.random() * 9000); // 4 digit random number
-                            email = `facebook_${sanitizedName}_${randomSuffix}@quantumchem.site`;
+                            email = `facebook_${sanitizedName}_${randomSuffix}@classgrid.in`;
                             console.log(`⚠️ Facebook email missing. Using generated email: ${email}`);
                         }
 

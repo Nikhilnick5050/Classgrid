@@ -14,7 +14,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 // Function to get the correct frontend URL based on environment
 const getFrontendUrl = () => {
     if (process.env.VERCEL) {
-        return process.env.FRONTEND_URL_PROD || "https://www.quantumchem.site";
+        return process.env.FRONTEND_URL_PROD || "https://www.classgrid.in";
     }
     return process.env.FRONTEND_URL || "http://localhost:3000";
 };
@@ -27,7 +27,7 @@ const sendFirstGoogleLoginEmail = async (user) => {
     try {
         await sendEmail({
             to: user.email,
-            subject: "🎉 Welcome to QuantumChem - Account Created Successfully",
+            subject: "🎉 Welcome to Classgrid - Account Created Successfully",
             html: getWelcomeEmailHtml(user, "google"),
             text: getWelcomePlainText(user, "google"),
         });
@@ -41,7 +41,7 @@ const sendGoogleLoginNotification = async (user) => {
     try {
         await sendEmail({
             to: user.email,
-            subject: "🔐 QuantumChem - Account Login Notification",
+            subject: "🔐 Classgrid - Account Login Notification",
             html: getLoginNotificationHtml(user, "google"),
             text: getLoginNotificationPlainText(user, "google"),
         });

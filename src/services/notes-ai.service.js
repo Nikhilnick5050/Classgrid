@@ -9,7 +9,7 @@ const geminiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 // AI VERIFY & SUMMARIZE
 // ─────────────────────────────────────────────
 export async function verifyAndSummarize(noteContent, noteTitle) {
-    const prompt = `You are an academic content verifier for QuantumChem, a chemistry learning platform.
+    const prompt = `You are an academic content verifier for Classgrid, a chemistry learning platform.
 
 Analyze the following academic note and provide a structured verification report.
 
@@ -64,7 +64,7 @@ Respond ONLY in this exact JSON format (no markdown, no code blocks):
 // AI GENERATE QUIZ
 // ─────────────────────────────────────────────
 export async function generateQuizFromContent(noteContent, noteTitle) {
-    const prompt = `You are a quiz generator for QuantumChem, a chemistry learning platform.
+    const prompt = `You are a quiz generator for Classgrid, a chemistry learning platform.
 
 Generate a quiz from the following academic content.
 

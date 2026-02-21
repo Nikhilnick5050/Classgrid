@@ -39,7 +39,7 @@ const sendWelcomeEmail = async (user, provider = "manual") => {
     try {
         await sendEmail({
             to: user.email,
-            subject: "🎉 Welcome to QuantumChem - Account Created Successfully",
+            subject: "🎉 Welcome to Classgrid - Account Created Successfully",
             html: getWelcomeEmailHtml(user, provider),
             text: getWelcomePlainText(user, provider),
         });
@@ -56,7 +56,7 @@ const sendLoginNotification = async (user, provider = "manual") => {
     try {
         await sendEmail({
             to: user.email,
-            subject: "🔐 QuantumChem - Account Login Notification",
+            subject: "🔐 Classgrid - Account Login Notification",
             html: getLoginNotificationHtml(user, provider),
             text: getLoginNotificationPlainText(user, provider),
         });
@@ -129,7 +129,7 @@ export const initiateSignup = async (req, res) => {
 
         await sendEmail({
             to: email,
-            subject: "📧 Verify Email - QuantumChem",
+            subject: "📧 Verify Email - Classgrid",
             html: getVerificationEmailHtml(name, apiVerifyLink),
             text: `Verify your email: ${apiVerifyLink} (Link expires in 24 hours)`,
         });
@@ -363,7 +363,7 @@ export const forgotPassword = async (req, res) => {
 
         await sendEmail({
             to: email,
-            subject: "🔑 Reset Your Password - QuantumChem",
+            subject: "🔑 Reset Your Password - Classgrid",
             html: getPasswordResetEmailHtml(resetLink),
             text: `Reset your password: ${resetLink} (Expires in 1 hour)`
         });
