@@ -105,6 +105,11 @@ const passportConfig = () => {
                 }
             )
         );
+        console.log("✅ GoogleStrategy successfully registered with Passport");
+    } else {
+        console.error("❌ CRITICAL ERROR: process.env.GOOGLE_CLIENT_ID is missing!");
+        console.error("❌ Passport skipped registering the Google Strategy.");
+        console.error("❌ Fix: Add GOOGLE_CLIENT_ID to your Vercel Environment Variables immediately.");
     }
 
     // ═══════════════════════════════════════
