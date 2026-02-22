@@ -15,7 +15,7 @@ async function testChat() {
     const loginRes = await fetch(`${BASE}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: "physics@quantumchem.site", password: "Quantumchem@5049" }),
+        body: JSON.stringify({ email: "physics@classgrid.in", password: "classgrid@5049" }),
     });
     const loginData = await loginRes.json();
     if (!loginRes.ok) { log("   FAIL: " + loginData.message); process.exit(1); }

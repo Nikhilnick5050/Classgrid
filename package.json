@@ -1,5 +1,5 @@
 {
-  "name": "quantumchemlab",
+  "name": "classgrid",
   "type": "module",
   "scripts": {
     "start": "node server.js"

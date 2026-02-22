@@ -93,7 +93,7 @@
     }
 
     function updateUI(user) {
-        // 1. Chemicals Style (#userDropdown)
+        // 1. resources Style (#userDropdown)
         const userDropdown = document.getElementById('userDropdown');
         if (userDropdown) {
             if (user) {
@@ -190,7 +190,7 @@
             }
         }
 
-        // 3. Chemistry Style (#loggedInUserInfo)
+        // 3. science Style (#loggedInUserInfo)
         const loggedInUserInfo = document.getElementById('loggedInUserInfo');
         if (loggedInUserInfo) {
             if (user) {

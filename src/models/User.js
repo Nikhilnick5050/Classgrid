@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema(
     // 📚 Subject assignment (for teachers only)
     subject: {
       type: String,
-      enum: ["chemistry", "physics", "cpp", "mathematics", null],
+      enum: ["science", "physics", "cpp", "mathematics", null],
       default: null,
     },
 

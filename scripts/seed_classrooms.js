@@ -11,7 +11,7 @@ async function seed() {
     console.log(`Found ${teachers.length} teachers`);
 
     const subjectNames = {
-        chemistry: "Engineering Chemistry",
+        science: "Engineering science",
         physics: "Engineering Physics",
         mathematics: "Engineering Mathematics",
         cpp: "C++ Programming",

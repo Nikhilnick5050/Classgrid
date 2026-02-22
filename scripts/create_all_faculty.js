@@ -9,26 +9,26 @@ const facultyList = [
 
     {
         name: 'Prof (Faculty)',
-        email: 'physics@quantumchem.site',
+        email: 'physics@classgrid.in',
         subject: 'physics',
-        password: 'Quantumchem@5049'
+        password: 'classgrid@5049'
     },
     {
         name: 'Prof. Math Faculty',
-        email: 'math@quantumchem.site',
+        email: 'math@classgrid.in',
         subject: 'mathematics',
-        password: 'Quantumchem@5049'
+        password: 'classgrid@5049'
     },
     {
         name: 'Prof. CPP Faculty',
-        email: 'cpp@quantumchem.site',
+        email: 'cpp@classgrid.in',
         subject: 'cpp',
-        password: 'Quantumchem@5049'
+        password: 'classgrid@5049'
     },
     {
         name: 'Prof. Amol Kharche',
-        email: 'amol.kharche@quantumchem.site',
-        subject: 'chemistry',
+        email: 'amol.kharche@classgrid.in',
+        subject: 'science',
         password: 'pass@123'
     }
 ];

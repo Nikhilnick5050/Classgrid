@@ -7,7 +7,7 @@ const ChatbotProtection = (() => {
     const BASIC_RESPONSES = {
         help: `❓ **Quick Help Guide**
 
-1️⃣ Browse our chemical database
+1️⃣ Browse our knowledge base
 2️⃣ Watch tutorial videos
 3️⃣ Access lab manuals
 4️⃣ Read safety guidelines
@@ -32,12 +32,12 @@ Sunday: Closed
 
 📧 Email us anytime at classgrid25@gmail.com or support@classgrid.site`,
 
-        database: `🔬 **Chemical Database**
+        database: `🔬 **knowledge base**
 
-✅ 1000+ Chemical compounds
+✅ 1000+ academic topics
 ✅ Safety data sheets
 ✅ Physical properties
-✅ Research references
+✅ study references
 
 🔐 Login to access advanced search and AI-powered queries!`,
 
@@ -138,11 +138,11 @@ I can help with basic questions about:
 • Database overview
 • Help & navigation
 
-For advanced AI-powered chemistry assistance, please login to unlock:
-✨ Detailed chemical analysis
+For advanced AI-powered science assistance, please login to unlock:
+✨ Detailed educational analysis
 ✨ Personalized recommendations
 ✨ Complex problem solving
-✨ Research assistance
+✨ study assistance
 
 👉 Click the Login button in the navbar to get started!`;
                 

@@ -7,7 +7,7 @@ dotenv.config();
 const checkUser = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI);
-        const email = 'amol.kharche@quantumchem.site';
+        const email = 'amol.kharche@classgrid.in';
         const user = await User.findOne({ email }).select('+password');
 
         if (user) {

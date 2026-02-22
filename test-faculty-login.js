@@ -10,7 +10,7 @@ const testLogin = async () => {
         await mongoose.connect(process.env.MONGO_URI);
         console.log('✅ Connected to MongoDB');
 
-        const email = 'amol.kharche@quantumchem.site';
+        const email = 'amol.kharche@classgrid.in';
         const password = 'pass@123';
 
         const user = await User.findOne({ email }).select('+password');

@@ -79,6 +79,10 @@ app.get("/api/health", (req, res) => {
 });
 
 /* ---------- CLEAN URL HANDLER ---------- */
+app.get("/api/config", (req, res) => {
+  res.json({ recaptchaSiteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY });
+});
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../public/index.html"));
 });

@@ -284,7 +284,7 @@
             
             <div class="qc-messages" id="qcMessages">
                 <div class="qc-msg assistant">
-                    Hello! I'm here to help you with Chemistry concepts. Ask me anything or upload a problem! 🧪
+                    Hello! I'm here to help you with science concepts. Ask me anything or upload a problem! 🧪
                 </div>
             </div>
             
