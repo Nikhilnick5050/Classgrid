@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="quantum">
+<html lang="en" data-theme="classgrid">
 
 <head>
     <meta charset="UTF-8">
@@ -27,8 +27,8 @@
             --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* THEME 1: Quantum Dark (default) */
-        [data-theme="quantum"] {
+        /* THEME 1: Classgrid Dark (default) */
+        [data-theme="classgrid"] {
             --bg: #0d1117;
             --bg-surface: #161b22;
             --bg-elevated: #1c2333;
@@ -1373,9 +1373,9 @@
     <!-- Theme Dropdown — fixed dark bg so text always readable -->
     <div class="theme-dropdown" id="themeDropdown">
         <div class="theme-dropdown-title">Choose Theme</div>
-        <div class="theme-option active" data-theme="quantum" onclick="setTheme('quantum',this)">
+        <div class="theme-option active" data-theme="classgrid" onclick="setTheme('classgrid',this)">
             <div class="theme-swatch" style="background:linear-gradient(135deg,#0d1117 40%,#00d4ff)"></div>
-            Quantum Dark
+            Classgrid Dark
         </div>
         <div class="theme-option" data-theme="arctic" onclick="setTheme('arctic',this)">
             <div class="theme-swatch" style="background:linear-gradient(135deg,#bae6fd 40%,#0ea5e9)"></div>
@@ -1508,7 +1508,7 @@
 
         // Restore saved theme
         (function () {
-            const saved = localStorage.getItem(THEME_KEY) || 'quantum';
+            const saved = localStorage.getItem(THEME_KEY) || 'classgrid';
             document.documentElement.setAttribute('data-theme', saved);
             const el = document.querySelector(`[data-theme="${saved}"].theme-option`);
             if (el) {

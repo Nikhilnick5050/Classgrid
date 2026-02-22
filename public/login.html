@@ -2,21 +2,8 @@
 <html lang="en">
 
 <head>
-  <script>
-    let RECAPTCHA_SITE_KEY = "";
-    fetch('/api/config')
-      .then(res => res.json())
-      .then(data => {
-        RECAPTCHA_SITE_KEY = data.recaptchaSiteKey;
-        if (RECAPTCHA_SITE_KEY) {
-          const s = document.createElement('script');
-          s.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
-          document.head.appendChild(s);
-          window.RECAPTCHA_SITE_KEY = RECAPTCHA_SITE_KEY;
-        }
-      })
-      .catch(console.error);
-  </script>
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfszXMsAAAAAGeNSmNtsKs_VRxaH4vy8r-rs7fM"></script>
+  <script>window.RECAPTCHA_SITE_KEY = "6LfszXMsAAAAAGeNSmNtsKs_VRxaH4vy8r-rs7fM";</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Classgrid | Login</title>
@@ -1496,8 +1483,8 @@
       loginBtn.disabled = true; loginBtnText.innerHTML = '<div class="loading"></div> Signing in...';
       try {
         let recaptchaToken = "";
-        if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
-          recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "login" });
+        if (window.grecaptcha && window.RECAPTCHA_SITE_KEY) {
+          recaptchaToken = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, { action: "login" });
         }
         const r = await fetch(EP.login, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email, password, role: selectedRole, recaptchaToken }) });
         const d = await r.json();
@@ -1523,8 +1510,8 @@
       signupBtn.disabled = true; signupBtnText.innerHTML = '<div class="loading"></div> Sending...';
       try {
         let recaptchaToken = "";
-        if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
-          recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "signup" });
+        if (window.grecaptcha && window.RECAPTCHA_SITE_KEY) {
+          recaptchaToken = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, { action: "signup" });
         }
         const r = await fetch(EP.signupInit, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name, email, role: selectedRole, recaptchaToken }) });
         const d = await r.json();

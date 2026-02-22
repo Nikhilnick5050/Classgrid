@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const inputFile = path.join(__dirname, 'public', 'logo-animation.html');
-const outputFile = path.join(__dirname, 'public', 'Quantumchem_transparent.png');
+const outputFile = path.join(__dirname, 'public', 'Classgrid_transparent.png');
 
 try {
     const htmlContent = fs.readFileSync(inputFile, 'utf8');

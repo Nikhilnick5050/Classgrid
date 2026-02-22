@@ -48,7 +48,7 @@ const replacements = [
     },
     {
         regex: /Advanced Chemical Solutions/gi,
-        replacement: "QuantumChem Classroom"
+        replacement: "Classgrid Classroom"
     }
 ];
 

@@ -62,10 +62,10 @@ const replacements = [
     { p: /Chemical\s*Data/gi, r: 'Academic Data' },
     { p: /chemical/gi, r: 'educational' },
     { p: /Chemical/gi, r: 'Educational' },
-    { p: /quantumchem\.site/gi, r: 'classgrid.in' },
-    { p: /quantumchem/gi, r: 'classgrid' },
-    { p: /QuantumChem/g, r: 'Classgrid' },
-    { p: /Quantumchem/g, r: 'Classgrid' }
+    { p: /Classgrid\.site/gi, r: 'classgrid.in' },
+    { p: /Classgrid/gi, r: 'classgrid' },
+    { p: /Classgrid/g, r: 'Classgrid' },
+    { p: /Classgrid/g, r: 'Classgrid' }
 ];
 
 const paths = [path.join(__dirname, 'public'), path.join(__dirname, 'src'), path.join(__dirname, 'scripts')];
