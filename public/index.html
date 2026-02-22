@@ -3119,7 +3119,7 @@
 
         function getTextWidth() {
             ctx.font = FONT;
-            return Math.max(ctx.measureText('Classgrid').width, ctx.measureText('Classroom').width);
+            return ctx.measureText('Classgrid').width;
         }
 
         function frame(now) {
@@ -3217,10 +3217,7 @@
                 ctx.fillStyle = '#fff';
                 ctx.textBaseline = 'middle';
                 const slideX = textX + lerp(50, 0, tp);
-                const fontSize = W < 480 ? 32 : (W < 768 ? 48 : 60);
-                const halfSpacing = fontSize * 0.6;
-                ctx.fillText('Classgrid', slideX, cy - halfSpacing);
-                ctx.fillText('Classroom', slideX, cy + halfSpacing);
+                ctx.fillText('Classgrid', slideX, cy);
                 ctx.restore();
             }
 

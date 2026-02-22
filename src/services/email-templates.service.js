@@ -209,7 +209,7 @@ const baseTemplate = (content, headerGradient = "linear-gradient(135deg, #2563eb
           ${content}
           <div class="footer">
             <p class="footer-text" style="font-weight: 600; color: #111827; margin-bottom: 10px; font-size: 14px;">
-              Classgrid Research Platform
+              Classgrid
             </p>
             <p class="footer-text">© ${new Date().getFullYear()} Classgrid. All rights reserved.</p>
             <div style="margin: 14px 0;">
@@ -286,8 +286,8 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
       </div>
 
       <div style="margin-bottom: 28px;">
-        <h2>Your Research Journey Starts Here</h2>
-        <p>You've successfully signed in to Classgrid using <strong>${authMethodDisplay}</strong>. We're thrilled to have you join our research community!</p>
+        <h2>Your Educational Journey Starts Here</h2>
+        <p>You've successfully signed in to Classgrid using <strong>${authMethodDisplay}</strong>. We're thrilled to have you join our community!</p>
       </div>
 
       <div class="divider"></div>
@@ -323,10 +323,10 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
       <div style="margin-bottom: 28px;">
         <h2>✨ Platform Features</h2>
         <div class="feature-list">
-          <div class="feature-item"><span class="feature-icon">✓</span><span>Access comprehensive laboratory research database</span></div>
-          <div class="feature-item"><span class="feature-icon">✓</span><span>Collaborate with researchers worldwide</span></div>
-          <div class="feature-item"><span class="feature-icon">✓</span><span>Store and manage your research data securely</span></div>
-          <div class="feature-item"><span class="feature-icon">✓</span><span>AI-powered chemistry assistant</span></div>
+          <div class="feature-item"><span class="feature-icon">✓</span><span>Access comprehensive educational resources</span></div>
+          <div class="feature-item"><span class="feature-icon">✓</span><span>Collaborate with educators and peers worldwide</span></div>
+          <div class="feature-item"><span class="feature-icon">✓</span><span>Store and manage your learning data securely</span></div>
+          <div class="feature-item"><span class="feature-icon">✓</span><span>AI-powered learning assistant</span></div>
         </div>
       </div>
 
@@ -348,7 +348,7 @@ export const getWelcomeEmailHtml = (user, provider = "manual") => {
       </div>
 
       <p style="text-align: center; color: #6b7280; font-size: 14px; margin: 0;">
-        Welcome aboard! We're excited to support your research journey.
+        Welcome aboard! We're excited to support your educational journey.
       </p>
     </div>
   `;
@@ -538,10 +538,10 @@ Account Created: ${formatDate()}
 Access your dashboard: ${getFrontendUrl()}/classroom
 
 PLATFORM FEATURES:
-✓ Access comprehensive laboratory research database
-✓ Collaborate with researchers worldwide
-✓ Store and manage your research data securely
-✓ AI-powered chemistry assistant
+✓ Access comprehensive educational resources
+✓ Collaborate with educators and peers worldwide
+✓ Store and manage your learning data securely
+✓ AI-powered learning assistant
 
 SECURITY NOTICE:
 If you didn't create this account, contact us at support@classgrid.in
